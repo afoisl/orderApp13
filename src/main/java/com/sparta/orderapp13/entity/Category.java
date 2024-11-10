@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,11 +28,12 @@ public class Category {
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now(); // Default creation time
 
-    @Column(name = "createdBy", length = 100, nullable = false)
+//  user 완성되면 nullable = false 추가하고 자동으로 추가 되도록 코드 수정해야됨
+    @Column(name = "createdBy", length = 100)
     private String createdBy;
 
     @Column(name = "updatedAt")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt = LocalDateTime.now(); // Default creation time
 
     @Column(name = "updatedBy", length = 100)
     private String updatedBy;
@@ -41,4 +43,7 @@ public class Category {
 
     @Column(name = "deletedBy", length = 100)
     private String deletedBy;
+
+    @OneToMany(mappedBy = "category")
+    private List<Food> foods;
 }
