@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -15,12 +16,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID username; // ID, Primary Key
+    private UUID id; // Primary Key
 
-    private String name; //  이름
-    private String nickname; //  닉네임
-    private String email; //  이메일
-    private String password; //  비밀번호
+    private String username; // 사용자 ID
+    private String name; // 사용자 이름
+    private String nickname; // 사용자 닉네임
+    private String email; // 사용자 이메일
+    private String password; // 사용자 비밀번호
 
     @Enumerated(EnumType.STRING)
     private Role role; // 역할 필드
@@ -33,13 +35,13 @@ public class User {
     private String deletedBy;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date createdAt;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date updatedAt;
+    private Date updatedAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date deletedAt;
+    private Date deletedAt;
 
     public enum Role {
         CUSTOMER, OWNER, MANAGER, MASTER
