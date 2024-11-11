@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Gradle properties and folders
+gradle.properties
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
