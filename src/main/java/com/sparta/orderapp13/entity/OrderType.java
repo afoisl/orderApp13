@@ -4,6 +4,4 @@ public enum OrderType {
 
     FACE_TO_FACE_ORDER,
     ONLINE_ORDER,
-
-
 }
