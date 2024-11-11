@@ -2,10 +2,13 @@ package com.sparta.orderapp13.service;
 
 import com.sparta.orderapp13.dto.FoodRequestDto;
 import com.sparta.orderapp13.dto.FoodResponseDto;
+import com.sparta.orderapp13.entity.Ai;
 import com.sparta.orderapp13.entity.Category;
 import com.sparta.orderapp13.entity.Food;
+import com.sparta.orderapp13.repository.AiRepository;
 import com.sparta.orderapp13.repository.CategoryRepository;
 import com.sparta.orderapp13.repository.FoodRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,25 +27,63 @@ public class FoodService {
 
     private final FoodRepository foodRepository;
     private final CategoryRepository categoryRepository;
+    private final AiRepository aiRepository;
+    private final GeminiService geminiService;
 
     // 음식 등록
+    /**
+     * 새로운 음식을 등록하고, 필요시 AI를 통해 설명을 생성합니다.
+     *
+     * @param requestDto 음식 정보를 포함한 요청 데이터
+     * @return 생성된 음식의 정보를 담은 응답 DTO
+     */
+    @Transactional
     public FoodResponseDto createFood(FoodRequestDto requestDto) {
+        // 요청된 카테고리가 유효한지 확인하고 조회
         Category category = categoryRepository.findByIdAndNotDeleted(requestDto.getCategoryId())
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
 
+        // 새로운 Food 객체 생성 및 필드 설정
         Food food = new Food();
-        food.setCategory(category);
+        food.setCategory(category); // 카테고리 설정
         food.setFoodName(requestDto.getName());
         food.setFoodPrice(requestDto.getPrice());
         food.setFoodImg(requestDto.getFoodImg());
-        food.setDescription(requestDto.getDescription());
 
-        // 생성자,수정자 정보를 설정 (updatedBy), null인 경우 기본값 설정 / 이후에는 인증된 사용자 정보에서 가져와서 저장하면 될 거 같음.
+        // 생성자, 수정자 정보 설정. null일 경우 기본값 설정
         food.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
         food.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
 
+        // Food 객체를 저장하여 기본 키 ID를 할당
         foodRepository.save(food);
-        return convertToResponseDto(food);
+
+        // AI 기록 조회: 동일한 음식 이름으로 가장 최근에 생성된 설명이 있는지 확인
+        Optional<Ai> latestAi = aiRepository.findTopByFoodOrderByCreatedAtDesc(food);
+        if (latestAi.isPresent()) {
+            // 최신 설명이 있으면 이를 음식 설명에 설정
+            food.setDescription(latestAi.get().getResponseText());
+        } else {
+            // AI로부터 설명을 요청할 필요가 있을 경우 설명 요청 prompt 생성
+            String prompt = requestDto.getName() + "을 설명해줘 30자 이내로";
+            String aiDescription = geminiService.getDescriptionFromAI(prompt);
+
+            // 응답 텍스트에서 불필요한 이모지 및 줄바꿈을 제거한 설명 텍스트
+            String cleanDescription = aiDescription.replaceAll("[\\p{So}\\n]", "");
+
+            // 새롭게 생성한 AI 기록을 DB에 저장
+            Ai aiRecord = new Ai();
+            aiRecord.setFood(food); // 설명을 생성한 Food 객체와 연관
+            aiRecord.setRequestText(prompt); // 설명 요청 prompt
+            aiRecord.setResponseText(cleanDescription); // 가공된 설명 텍스트 설정
+            aiRecord.setCreatedBy("AI 시스템"); // 생성자 기본값 설정
+            aiRecord.setUpdatedBy("AI 시스템"); // 수정자 기본값 설정
+            aiRepository.save(aiRecord);
+
+            // Food 객체에 생성한 설명을 설정
+            food.setDescription(cleanDescription);
+        }
+
+        return convertToResponseDto(food); // 음식 정보를 응답 DTO로 변환하여 반환
     }
 
     // 카테고리별 음식 목록 조회 (삭제되지 않은 항목만)

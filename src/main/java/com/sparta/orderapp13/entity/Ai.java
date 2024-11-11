@@ -37,7 +37,7 @@ public class Ai {
     private String createdBy;
 
     @Column(name = "updatedAt")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "updatedBy", length = 100)
     private String updatedBy;
