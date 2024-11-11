@@ -58,7 +58,8 @@ public class CategoryService {
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
         category.setCategoryName(requestDto.getCategoryName());
         // createdBy가 null인 경우 기본값 설정 / 이후에는 인증된 사용자 정보에서 가져와서 저장하면 될 거 같음.
-        category.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "수정한 사람2");
+        category.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람2");
+        category.setUpdatedAt(LocalDateTime.now());
         categoryRepository.save(category);
         return convertToResponseDto(category);
     }

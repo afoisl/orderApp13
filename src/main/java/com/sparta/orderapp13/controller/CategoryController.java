@@ -48,6 +48,7 @@ public class CategoryController {
     }
 
     // 특정 ID에 해당하는 카테고리를 소프트 삭제
+    // deleted_by에 삭제한 사람 들어가게 해야 함
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<Void> deleteCategory(@PathVariable UUID categoryId) {
         categoryService.deleteCategory(categoryId);
