@@ -33,7 +33,12 @@ public class FoodService {
         food.setCategory(category);
         food.setFoodName(requestDto.getName());
         food.setFoodPrice(requestDto.getPrice());
+        food.setFoodImg(requestDto.getFoodImg());
         food.setDescription(requestDto.getDescription());
+
+        // 생성자,수정자 정보를 설정 (updatedBy), null인 경우 기본값 설정 / 이후에는 인증된 사용자 정보에서 가져와서 저장하면 될 거 같음.
+        food.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
+        food.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
 
         foodRepository.save(food);
         return convertToResponseDto(food);
@@ -74,6 +79,10 @@ public class FoodService {
         food.setFoodName(requestDto.getName());
         food.setFoodPrice(requestDto.getPrice());
         food.setDescription(requestDto.getDescription());
+        food.setFoodImg(requestDto.getFoodImg());
+        food.setUpdatedAt(LocalDateTime.now());
+
+        food.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
         food.setUpdatedAt(LocalDateTime.now());
 
         foodRepository.save(food);
@@ -102,6 +111,7 @@ public class FoodService {
         FoodResponseDto responseDto = new FoodResponseDto();
         responseDto.setId(food.getFoodId());
         responseDto.setName(food.getFoodName());
+        responseDto.setFoodImg(food.getFoodImg());
         responseDto.setPrice(food.getFoodPrice());
         responseDto.setDescription(food.getDescription());
         return responseDto;

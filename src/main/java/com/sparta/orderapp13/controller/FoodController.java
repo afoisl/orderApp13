@@ -24,8 +24,8 @@ public class FoodController {
         return ResponseEntity.ok(responseDto);
     }
 
-    // 음식 목록 조회
-    @GetMapping("/{categoryId}")
+    // 카테고리별 음식 목록 조회
+    @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<FoodResponseDto>> getFoodsByCategory(
             @PathVariable UUID categoryId,
             @RequestParam int page,
