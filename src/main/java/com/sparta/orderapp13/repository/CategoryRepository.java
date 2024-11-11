@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends JpaRepository<Category, UUID> {
     // 삭제되지 않은 카테고리 목록만 조회
     @Query("SELECT c FROM Category c WHERE c.deletedAt IS NULL")
     List<Category> findAllActiveCategories();

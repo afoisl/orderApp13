@@ -29,7 +29,7 @@ public class Food {
     private String foodName;
 
     @Column(name = "foodPrice", nullable = false)
-    private BigInteger foodPrice;
+    private Integer foodPrice;
 
     @Column(name = "foodImg", length = 1024)
     private String foodImg;
