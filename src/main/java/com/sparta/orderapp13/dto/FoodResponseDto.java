@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class FoodResponseDto {
-    private UUID id; // 음식 ID
+    private UUID id; // 음식 ID / id 주의
     private String name; // 음식 이름
     private Integer price; // 음식 가격
     private String foodImg; // 음식 사진
