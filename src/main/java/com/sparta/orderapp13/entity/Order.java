@@ -29,8 +29,8 @@ public class Order {
 //    @JoinColumn(name = "user_id")
 //    private User user;
 
-    @OneToMany(mappedBy = "order")
-    private List<StoreOrder> storeOrderList = new ArrayList<>();
+//    @OneToMany(mappedBy = "order")
+//    private List<StoreOrder> storeOrderList = new ArrayList<>();
 
 //    @OneToOne(mappedBy = "order")
 //    private Payment payment;

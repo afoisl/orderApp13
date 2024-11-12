@@ -1,7 +1,7 @@
 package com.sparta.orderapp13.dto;
 
 import com.sparta.orderapp13.entity.Order;
-import com.sparta.orderapp13.entity.StoreOrder;
+//import com.sparta.orderapp13.entity.StoreOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,11 +31,11 @@ public class OrderResponseDto {
 
     public OrderResponseDto(Order order, UUID storeId) {
         this.orderId = order.getOrderId();
-        for(StoreOrder storeOrder : order.getStoreOrderList()){
-            if (storeOrder.getStore().getStoreId().equals(storeId)) {
-                this.storeId = storeOrder.getStore().getStoreId();
-            }
-        }
+//        for(StoreOrder storeOrder : order.getStoreOrderList()){
+//            if (storeOrder.getStore().getStoreId().equals(storeId)) {
+//                this.storeId = storeOrder.getStore().getStoreId();
+//            }
+//        }
         this.totalPrice = order.getTotalPrice();
         this.orderType = order.getOrderType().name();
         this.orderStatus = order.getOrderStatus().name();
