@@ -15,11 +15,10 @@ public class OrderRequestDto {
 
     private String userId;
     private UUID storeId;
-    private List<orderFoodDto> foodList;
+//    private List<orderFoodDto> foodList;
     private String paymentMethod;
     private String orderType;
     private String orderInstructions;
     private String deliveryAddress;
     private String deliveryInstructions;
-
 }
