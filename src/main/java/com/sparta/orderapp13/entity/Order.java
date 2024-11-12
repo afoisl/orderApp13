@@ -63,22 +63,22 @@ public class Order {
 
     private String deletedBy;
 
-    public Order(OrderRequestDto requestDto, UUID store, int totalPrice) {
-        this.orderId = UUID.randomUUID();
-//        this.user = user;
-        try {
-            this.orderType = OrderType.valueOf(requestDto.getOrderType().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            this.orderType = OrderType.ONLINE_ORDER;
-        }
-        this.orderStatus = OrderStatus.ORDER_PENDING;
-        this.orderInstructions = requestDto.getOrderInstructions();
-        this.deliveryAddress = requestDto.getDeliveryAddress();
-        this.deliveryInstructions = requestDto.getDeliveryInstructions();
-        this.totalPrice = totalPrice;
-        StoreOrder storeOrder = new StoreOrder(orderId, store.getStoreId());
-        this.storeOrderList.add(storeOrder);
-    }
+//    public Order(OrderRequestDto requestDto, UUID store, int totalPrice) {
+//        this.orderId = UUID.randomUUID();
+////        this.user = user;
+//        try {
+//            this.orderType = OrderType.valueOf(requestDto.getOrderType().toUpperCase());
+//        } catch (IllegalArgumentException e) {
+//            this.orderType = OrderType.ONLINE_ORDER;
+//        }
+//        this.orderStatus = OrderStatus.ORDER_PENDING;
+//        this.orderInstructions = requestDto.getOrderInstructions();
+//        this.deliveryAddress = requestDto.getDeliveryAddress();
+//        this.deliveryInstructions = requestDto.getDeliveryInstructions();
+//        this.totalPrice = totalPrice;
+//        StoreOrder storeOrder = new StoreOrder(orderId, store.getStoreId());
+//        this.storeOrderList.add(storeOrder);
+//    }
 
-    public void update
+
 }

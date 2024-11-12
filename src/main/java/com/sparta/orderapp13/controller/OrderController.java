@@ -1,7 +1,9 @@
 package com.sparta.orderapp13.controller;
 
+import com.sparta.orderapp13.dto.OrderCancelDto;
 import com.sparta.orderapp13.dto.OrderRequestDto;
 import com.sparta.orderapp13.dto.OrderResponseDto;
+import com.sparta.orderapp13.dto.OrderStatusUpdateDto;
 import com.sparta.orderapp13.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,11 +16,11 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping("/orders")
-    public OrderResponseDto createOrder(@RequestBody OrderRequestDto requestDto) {
-        return orderService.createOrder(requestDto);
-    }
-
+//    @PostMapping("/orders")
+//    public OrderResponseDto createOrder(@RequestBody OrderRequestDto requestDto) {
+//        return orderService.createOrder(requestDto);
+//    }
+//
 //    @GetMapping("/orders")
 //    public Page<OrderResponseDto> getOrders(
 //            @RequestParam("page") int page,
@@ -26,5 +28,15 @@ public class OrderController {
 //            @RequestParam("sortBy") String sortBy,
 //            @RequestParam("isAsc") boolean isAsc) {
 //        return orderService.getOrders(user,page - 1, size, sortBy, isAsc);
+//    }
+//
+//    @PatchMapping
+//    public OrderResponseDto updateOrder(@RequestBody OrderStatusUpdateDto updateDto) {
+//        return orderService.updateOrder(updateDto);
+//    }
+//
+//    @DeleteMapping
+//    public void deleteOrder(@RequestBody OrderCancelDto cancelDto) {
+//        orderService.deleteOrder(cancelDto);
 //    }
 }
