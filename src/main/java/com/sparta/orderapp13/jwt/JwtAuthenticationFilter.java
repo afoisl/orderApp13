@@ -8,7 +8,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = getTokenFromRequest(request);
+        String token = jwtUtil.substringToken(request.getHeader(JwtUtil.AUTHORIZATION_HEADER));
 
         if (token != null && jwtUtil.validateToken(token)) {
             Claims claims = jwtUtil.getUserInfoFromToken(token);
@@ -36,17 +35,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    private String getTokenFromRequest(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(JwtUtil.AUTHORIZATION_HEADER)) {
-                    return jwtUtil.substringToken(cookie.getValue());
-                }
-            }
-        }
-        return null;
     }
 }
