@@ -26,10 +26,17 @@ public class StoreController {
         return storeService.getAll(category);
     }
 
+    @GetMapping("/store/{storeId}")
+    public StoreResponseDto getStore(@PathVariable UUID storeId) {
+        return storeService.getStore(storeId);
+    }
+
     @PutMapping("/stores/{storeId}")
     public UUID updateStore(@PathVariable UUID storeId, @RequestBody StoreRequestDto requestDto) {
         return storeService.update(storeId, requestDto);
     }
+
+//    @PatchMapping("/store")
 
 
 }

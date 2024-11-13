@@ -53,6 +53,9 @@ public class Store {
     private boolean isOpen = false;
 
     @Column
+    private boolean isDeleted = false;
+
+    @Column
     private LocalDateTime createdAt;
 
     @Column
@@ -89,4 +92,6 @@ public class Store {
         this.storeName = requestDto.getStoreName();
         this.storeNumber = requestDto.getStoreNumber();
     }
+
+    public void delete(StoreRequestDto requestDto) {}
 }
