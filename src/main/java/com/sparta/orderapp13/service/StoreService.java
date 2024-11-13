@@ -36,6 +36,14 @@ public class StoreService {
                 .toList();
     }
 
+    public StoreResponseDto getStore(UUID storeId) {
+        // 가게 조회
+        Store store = storeRepository.findById(storeId).orElseThrow(()->
+                        new NullPointerException("존재하지 않는 가게입니다."));
+
+        return new StoreResponseDto(store);
+    }
+
     @Transactional
     public UUID update(UUID storeId, StoreRequestDto requestDto) {
         // 가게 조회
