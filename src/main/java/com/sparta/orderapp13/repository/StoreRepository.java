@@ -1,7 +1,6 @@
 package com.sparta.orderapp13.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sparta.orderapp13.entity.Category;
 import com.sparta.orderapp13.entity.QCategory;
 import com.sparta.orderapp13.entity.QStore;
 import com.sparta.orderapp13.entity.Store;
