@@ -30,20 +30,13 @@ public class FoodService {
     private final AiRepository aiRepository;
     private final GeminiService geminiService;
 
-    // 음식 등록
-    /**
-     * 새로운 음식을 등록하고, 필요시 AI를 통해 설명을 생성합니다.
-     *
-     * @param requestDto 음식 정보를 포함한 요청 데이터
-     * @return 생성된 음식의 정보를 담은 응답 DTO
-     */
+    // 음식 등록 새로운 음식을 등록하고, 필요시 AI를 통해 설명을 생성
+
     @Transactional
     public FoodResponseDto createFood(FoodRequestDto requestDto) {
-        // 요청된 카테고리가 유효한지 확인하고 조회
         Category category = categoryRepository.findByIdAndNotDeleted(requestDto.getCategoryId())
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
 
-        // 새로운 Food 객체 생성 및 필드 설정
         Food food = new Food();
         food.setCategory(category); // 카테고리 설정
         food.setFoodName(requestDto.getName());
@@ -72,8 +65,8 @@ public class FoodService {
 
             // 새롭게 생성한 AI 기록을 DB에 저장
             Ai aiRecord = new Ai();
-            aiRecord.setFood(food); // 설명을 생성한 Food 객체와 연관
-            aiRecord.setRequestText(prompt); // 설명 요청 prompt
+            aiRecord.setFood(food);
+            aiRecord.setRequestText(prompt);
             aiRecord.setResponseText(cleanDescription); // 가공된 설명 텍스트 설정
             aiRecord.setCreatedBy("AI 시스템"); // 생성자 기본값 설정
             aiRecord.setUpdatedBy("AI 시스템"); // 수정자 기본값 설정

@@ -12,26 +12,25 @@ public class GeminiRestTemplateConfig {
     @Value("${gemini.api.key}")  // application.properties에 정의된 Gemini API 키를 주입
     private String apiKey;
 
-    /**
-     * Gemini API와의 HTTP 요청을 위해 설정된 RestTemplate Bean을 생성합니다.
-     * 이 RestTemplate에는 요청 시 API 키를 자동으로 추가하도록 인터셉터가 포함됩니다.
-     *
-     */
+
+//     Gemini API와의 HTTP 요청을 위해 설정된 RestTemplate Bean을 생성
+//     이 RestTemplate에는 요청 시 API 키를 자동으로 추가하도록 인터셉터가 포함
+
     @Bean
     public RestTemplate geminiRestTemplate() {
-        // 새로운 RestTemplate 인스턴스를 생성합니다.
+        // 새로운 RestTemplate 인스턴스를 생성
         RestTemplate restTemplate = new RestTemplate();
 
-        // API 요청 시 자동으로 API 키를 추가하도록 인터셉터를 추가합니다.
+        // API 요청 시 자동으로 API 키를 추가하도록 인터셉터를 추가
         restTemplate.getInterceptors().add((request, body, execution) -> {
-            // 현재 요청의 URI에 API 키를 쿼리 파라미터로 추가합니다.
+            // 현재 요청의 URI에 API 키를 쿼리 파라미터로 추가
             String urlWithKey = request.getURI().toString() + "?key=" + apiKey;
 
-            // Content-Type 및 Accept 헤더를 JSON 형식으로 설정합니다.
+            // Content-Type 및 Accept 헤더를 JSON 형식으로 설정
             request.getHeaders().set(HttpHeaders.CONTENT_TYPE, "application/json");
             request.getHeaders().set(HttpHeaders.ACCEPT, "application/json");
 
-            // 수정된 URL을 통해 요청을 전송합니다.
+            // 수정된 URL을 통해 요청을 전송
             return execution.execute(request, body);
         });
 
