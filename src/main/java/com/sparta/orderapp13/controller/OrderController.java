@@ -2,7 +2,6 @@ package com.sparta.orderapp13.controller;
 
 import com.sparta.orderapp13.dto.OrderRequestDto;
 import com.sparta.orderapp13.dto.OrderResponseDto;
-import com.sparta.orderapp13.dto.OrderStatusUpdateDto;
 import com.sparta.orderapp13.dto.OrderUpdateDto;
 import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.OrderService;
@@ -24,16 +23,16 @@ public class OrderController {
         return orderService.createOrder(requestDto);
     }
 
-    @GetMapping("/orders")
-    public Page<OrderResponseDto> getOrders(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("isAsc") boolean isAsc,
-            @AuthenticationPrincipal UserDetailsImpl userDetails
-            ) {
-        return orderService.getOrders(userDetails.getUser(),page - 1, size, sortBy, isAsc);
-    }
+//    @GetMapping("/orders")
+//    public Page<OrderResponseDto> getOrders(
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size,
+//            @RequestParam("sortBy") String sortBy,
+//            @RequestParam("isAsc") boolean isAsc,
+//            @AuthenticationPrincipal UserDetailsImpl userDetails
+//            ) {
+//        return orderService.getOrders(userDetails.getUser(),page - 1, size, sortBy, isAsc);
+//    }
 
     @PatchMapping("/order/confirm")
     public OrderUpdateDto confirmOrder(@RequestBody OrderUpdateDto requestDto) {

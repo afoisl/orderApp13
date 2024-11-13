@@ -20,7 +20,7 @@ public class OrderUpdateDto {
 
     public OrderUpdateDto(Order order) {
         this.orderId = order.getOrderId();
-        this.userId = order.getUser().getUserId();
+//        this.userId = order.getUser().getUserId();
         this.orderStatus = String.valueOf(order.getOrderStatus());
     }
 }
