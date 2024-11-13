@@ -5,8 +5,6 @@ import jakarta.persistence.Id;
 
 @Entity
 public class User {
-
-
     @Id
     private Long id;
 
