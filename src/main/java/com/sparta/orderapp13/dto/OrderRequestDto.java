@@ -1,10 +1,12 @@
 package com.sparta.orderapp13.dto;
 
+import com.sparta.orderapp13.entity.OrderFood;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -15,7 +17,7 @@ public class OrderRequestDto {
 
     private String userId;
     private UUID storeId;
-//    private List<orderFoodDto> foodList;
+    private List<OrderFood> foodList;
     private String paymentMethod;
     private String orderType;
     private String orderInstructions;
