@@ -19,6 +19,7 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final JPAQueryFactory queryFactory;
 
+    @Transactional
     public StoreResponseDto enroll(StoreRequestDto requestDto) {
         // requestDto 에 담긴 정보로 store 객체 생성
         Store store = new Store(requestDto);
@@ -39,7 +40,7 @@ public class StoreService {
     public StoreResponseDto getStore(UUID storeId) {
         // 가게 조회
         Store store = storeRepository.findById(storeId).orElseThrow(()->
-                        new NullPointerException("존재하지 않는 가게입니다."));
+                        new IllegalArgumentException("존재하지 않는 가게입니다."));
 
         return new StoreResponseDto(store);
     }
@@ -48,13 +49,23 @@ public class StoreService {
     public UUID update(UUID storeId, StoreRequestDto requestDto) {
         // 가게 조회
         Store store = storeRepository.findById(storeId).orElseThrow(()->
-                        new NullPointerException("존재하지 않는 가게입니다."));
+                        new IllegalArgumentException("존재하지 않는 가게입니다."));
 
         // 수정 사항 업데이트
         store.update(requestDto);
 
         // 수정 정보 저장
         storeRepository.save(store);
+        return storeId;
+    }
+
+    @Transactional
+    public UUID delete(UUID storeId) {
+        // 가게 조회
+        Store store = storeRepository.findById(storeId).orElseThrow(()->
+                new IllegalArgumentException("존재하지 않는 가게입니다."));
+
+        store.delete();
         return storeId;
     }
 }

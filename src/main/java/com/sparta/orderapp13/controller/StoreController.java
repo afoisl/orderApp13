@@ -32,11 +32,12 @@ public class StoreController {
     }
 
     @PutMapping("/stores/{storeId}")
-    public UUID updateStore(@PathVariable UUID storeId, @RequestBody StoreRequestDto requestDto) {
+    public UUID update(@PathVariable UUID storeId, @RequestBody StoreRequestDto requestDto) {
         return storeService.update(storeId, requestDto);
     }
 
-//    @PatchMapping("/store")
-
-
+    @PatchMapping("/store/{storeId}")
+    public UUID delete(@PathVariable UUID storeId) {
+        return storeService.delete(storeId);
+    }
 }

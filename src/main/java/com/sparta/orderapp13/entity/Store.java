@@ -93,5 +93,12 @@ public class Store {
         this.storeNumber = requestDto.getStoreNumber();
     }
 
-    public void delete(StoreRequestDto requestDto) {}
+    public void delete() {
+        if (!this.isDeleted) {
+            this.isDeleted = true;
+            this.deletedAt = LocalDateTime.now(); // 폐업일 설정
+        } else {
+            throw new IllegalStateException("이미 폐업된 가게입니다.");
+        }
+    }
 }
