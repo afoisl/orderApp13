@@ -1,8 +1,8 @@
 package com.sparta.orderapp13.entity;
 
+import com.sparta.orderapp13.dto.StoreRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "store")
+@Table(name = "p_store")
 public class Store {
 
     @Id
@@ -70,4 +70,23 @@ public class Store {
     @Column
     private String deletedBy;
 
+    public Store(StoreRequestDto requestDto) {
+        this.region = requestDto.getRegion();
+        this.city = requestDto.getCity();
+        this.detailAddress = requestDto.getDetailAddress();
+        this.postalCode = requestDto.getPostalCode();
+        this.category = requestDto.getCategory();
+        this.storeName = requestDto.getStoreName();
+        this.storeNumber = requestDto.getStoreNumber();
+    }
+
+    public void update(StoreRequestDto requestDto) {
+        this.region = requestDto.getRegion();
+        this.city = requestDto.getCity();
+        this.detailAddress = requestDto.getDetailAddress();
+        this.postalCode = requestDto.getPostalCode();
+        this.category = requestDto.getCategory();
+        this.storeName = requestDto.getStoreName();
+        this.storeNumber = requestDto.getStoreNumber();
+    }
 }
