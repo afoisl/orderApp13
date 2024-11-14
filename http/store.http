@@ -1,0 +1,2 @@
+### 카테고리로 전체 목록 조회
+GET http://localhost:8080/api/stores?category=중식
