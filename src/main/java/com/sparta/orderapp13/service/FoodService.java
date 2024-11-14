@@ -5,9 +5,11 @@ import com.sparta.orderapp13.dto.FoodResponseDto;
 import com.sparta.orderapp13.entity.Ai;
 import com.sparta.orderapp13.entity.Category;
 import com.sparta.orderapp13.entity.Food;
+import com.sparta.orderapp13.entity.Store;
 import com.sparta.orderapp13.repository.AiRepository;
 import com.sparta.orderapp13.repository.CategoryRepository;
 import com.sparta.orderapp13.repository.FoodRepository;
+import com.sparta.orderapp13.repository.StoreRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,7 @@ public class FoodService {
 
     private final FoodRepository foodRepository;
     private final CategoryRepository categoryRepository;
+    private final StoreRepository storeRepository;
     private final AiRepository aiRepository;
     private final GeminiService geminiService;
 
@@ -36,9 +39,12 @@ public class FoodService {
     public FoodResponseDto createFood(FoodRequestDto requestDto) {
         Category category = categoryRepository.findByIdAndNotDeleted(requestDto.getCategoryId())
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+        Store store = storeRepository.findByStoreIdAndDeletedAtIsNull(requestDto.getStoreId())
+                .orElseThrow(() -> new IllegalArgumentException("Food not found"));
 
         Food food = new Food();
         food.setCategory(category); // 카테고리 설정
+        food.setStore(store);
         food.setFoodName(requestDto.getName());
         food.setFoodPrice(requestDto.getPrice());
         food.setFoodImg(requestDto.getFoodImg());
