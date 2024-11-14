@@ -10,14 +10,15 @@ import java.util.List;
 import java.util.UUID;
 
 public interface StoreRepository extends JpaRepository<Store, UUID> {
-//    default List<Store> findAllByCategoryName(JPAQueryFactory queryFactory, String categoryName) {
-//        QStore store = QStore.store;
-//        QCategory category = QCategory.category;
-//
-//        return queryFactory
-//                .selectFrom(store)
-//                .join(store.category, category)
-//                .where(category.categoryName.eq(categoryName))
-//                .fetch();
-//    }
+    default List<Store> findAllByCategoryName(JPAQueryFactory queryFactory, String categoryName) {
+        QStore store = QStore.store;
+        QCategory category = QCategory.category;
+
+        return queryFactory
+                .selectFrom(store)
+                .join(store.category, category)
+                .where(category.categoryName.eq(categoryName))
+                .fetch();
+    }
 }
+
