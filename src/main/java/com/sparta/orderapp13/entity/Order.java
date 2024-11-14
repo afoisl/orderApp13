@@ -14,16 +14,14 @@ import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "orders")
+@Table(name = "p_orders")
 public class Order {
 
     @Id
     @GeneratedValue
     @UuidGenerator
-    @Column(columnDefinition = "BINARY(16)")
     private UUID orderId;
 
     @ManyToOne

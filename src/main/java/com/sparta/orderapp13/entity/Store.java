@@ -3,7 +3,6 @@ package com.sparta.orderapp13.entity;
 import com.sparta.orderapp13.dto.StoreRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Entity
 @Table(name = "p_store")
@@ -21,56 +19,55 @@ public class Store {
     @Id
     @GeneratedValue
     @UuidGenerator
-    @Column(columnDefinition = "BINARY(16)")
     private UUID storeId;
 
-    @Column(nullable = false)
+    @Column(name = "region", nullable = false)
     @Max(100)
     private String region;
 
-    @Column(nullable = false)
+    @Column(name = "city", nullable = false)
     @Max(100)
     private String city;
 
-    @Column(nullable = false)
+    @Column(name = "detailAddress", nullable = false)
     @Max(255)
     private String detailAddress;
 
-    @Column(nullable = false)
+    @Column(name = "postalCode", nullable = false)
     private int postalCode;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "category")
     private Category category;
 
-    @Column(nullable = false)
+    @Column(name = "storeName", nullable = false)
     private String storeName;
 
-    @Column(nullable = false)
+    @Column(name = "storeNumber", nullable = false)
     private String storeNumber;
 
-    @Column
+    @Column(name = "isOpen")
     private boolean isOpen = false;
 
-    @Column
+    @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
-    @Column
+    @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column
+    @Column(name = "createdBy", length = 100)
     private String createdBy;
 
-    @Column
+    @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    @Column
+    @Column(name = "updatedBy", length = 100)
     private String updatedBy;
 
-    @Column
+    @Column(name = "deletedAt")
     private LocalDateTime deletedAt;
 
-    @Column
+    @Column(name = "deletedBy", length = 100)
     private String deletedBy;
 
     public Store(StoreRequestDto requestDto) {
