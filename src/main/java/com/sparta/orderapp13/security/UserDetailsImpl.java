@@ -28,8 +28,9 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getUserEmail();
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

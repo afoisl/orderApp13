@@ -28,24 +28,23 @@ public class UserService {
 
     @Transactional
     public void signup(SignupRequestDto requestDto) {
-        String username = requestDto.getUsername();
+        String userEmail = requestDto.getUserEmail();
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
-        // 중복된 회원 확인
-        Optional<User> found = userRepository.findByUsername(username);
-        if (found.isPresent()) {
-            throw new IllegalArgumentException("이미 존재하는 사용자입니다.");
+        // 중복된 이메일 확인
+        Optional<User> foundByEmail = userRepository.findByUserEmail(userEmail);
+        if (foundByEmail.isPresent()) {
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
         UserRoleEnum role = requestDto.isAdmin() ? UserRoleEnum.ADMIN : UserRoleEnum.USER;
-
-        User user = new User(username, encodedPassword, role);
+        User user = new User(userEmail, requestDto.getName(), encodedPassword, role);
         userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
     public void login(LoginRequestDto requestDto, HttpServletResponse response) {
-        User user = userRepository.findByUsername(requestDto.getUsername())
+        User user = userRepository.findByUserEmail(requestDto.getUserEmail())
                 .orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
 
         if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
@@ -53,7 +52,7 @@ public class UserService {
         }
 
         // JWT 토큰 생성
-        String token = jwtUtil.createToken(user.getUsername(), user.getRole());
+        String token = jwtUtil.createToken(user.getUserEmail(), user.getRole());
 
         // 토큰을 응답 헤더에 추가
         response.setHeader(JwtUtil.AUTHORIZATION_HEADER, JwtUtil.BEARER_PREFIX + token);
