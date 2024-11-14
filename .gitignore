@@ -25,7 +25,9 @@ bin/
 application.properties
 resources/properties/env.properties
 src/main/resources/application.properties
+# Add to .gitignore to prevent tracking
 src/main/resources/properties/env.properties
+
 
 .idea
 *.iws
