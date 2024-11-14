@@ -1,26 +1,29 @@
 package com.sparta.orderapp13.entity;
 
+import com.sparta.orderapp13.dto.StoreRequestDto;
+import com.sparta.orderapp13.repository.CategoryRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
+@Setter
 @Getter
 @Entity
 @Table(name = "p_store")
 public class Store {
 
     @Id
-    @GeneratedValue
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "storeId", nullable = false, updatable = false, unique = true)
     private UUID storeId;
 
     @Column(nullable = false)
@@ -35,12 +38,11 @@ public class Store {
     @Size(max = 255)
     private String detailAddress;
 
-
     @Column(nullable = false)
     private int postalCode;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(nullable = false)
@@ -56,7 +58,7 @@ public class Store {
     private boolean isDeleted = false;
 
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private String createdBy;
@@ -73,5 +75,32 @@ public class Store {
     @Column
     private String deletedBy;
 
+    public Store(StoreRequestDto requestDto, Category category) {
+        this.region = requestDto.getRegion();
+        this.city = requestDto.getCity();
+        this.detailAddress = requestDto.getDetailAddress();
+        this.postalCode = requestDto.getPostalCode();
+        this.category = category;
+        this.storeName = requestDto.getStoreName();
+        this.storeNumber = requestDto.getStoreNumber();
+    }
 
+    public void update(StoreRequestDto requestDto, Category category) {
+        this.region = requestDto.getRegion();
+        this.city = requestDto.getCity();
+        this.detailAddress = requestDto.getDetailAddress();
+        this.postalCode = requestDto.getPostalCode();
+        this.category = category;
+        this.storeName = requestDto.getStoreName();
+        this.storeNumber = requestDto.getStoreNumber();
+    }
+
+    public void delete() {
+        if (!this.isDeleted) {
+            this.isDeleted = true;
+            this.deletedAt = LocalDateTime.now(); // 폐업일 설정
+        } else {
+            throw new IllegalStateException("이미 폐업된 가게입니다.");
+        }
+    }
 }
