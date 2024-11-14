@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "payment")
+@Table(name = "p_payment")
 public class Payment {
 
     @Id

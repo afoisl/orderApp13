@@ -21,10 +21,10 @@ public class StoreController {
         return storeService.enroll(requestDto);
     }
 
-    @GetMapping("/stores")
-    public List<StoreResponseDto> getAll(@RequestParam String category) {
-        return storeService.getAll(category);
-    }
+//    @GetMapping("/stores")
+//    public List<StoreResponseDto> getAll(@RequestParam String category) {
+//        return storeService.getAll(category);
+//    }
 
     @GetMapping("/store/{storeId}")
     public StoreResponseDto getStore(@PathVariable UUID storeId) {

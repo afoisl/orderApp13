@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "p_order_food")
 public class OrderFood {
 
     @Id

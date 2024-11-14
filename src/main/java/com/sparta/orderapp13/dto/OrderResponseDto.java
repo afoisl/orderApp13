@@ -34,11 +34,11 @@ public class OrderResponseDto {
 
     public OrderResponseDto(Order order) {
         this.orderId = order.getOrderId();
-        for(StoreOrder storeOrder : order.getStoreOrderList()){
-            if (storeOrder.getStore().getStoreId().equals(storeId)) {
-                this.storeId = storeOrder.getStore().getStoreId();
-            }
-        }
+//        for(StoreOrder storeOrder : order.getStoreOrderList()){
+//            if (storeOrder.getStore().getStoreId().equals(storeId)) {
+//                this.storeId = storeOrder.getStore().getStoreId();
+//            }
+//        }
         this.totalPrice = order.getTotalPrice();
         this.orderType = order.getOrderType().name();
         this.orderStatus = order.getOrderStatus().name();
