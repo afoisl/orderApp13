@@ -24,6 +24,9 @@ public class Ai {
     @JoinColumn(name = "foodId", nullable = false)
     private Food food;
 
+    @Column(name = "foodName", nullable = false)
+    private String foodName;
+
     @Column(name = "requestText", length = 1024, nullable = false)
     private String requestText;
 

@@ -13,4 +13,6 @@ public interface AiRepository extends JpaRepository<Ai, UUID> {
 //     AI 설명은 생성된 날짜를 기준으로 내림차순으로 정렬되며, 가장 최신의 설명을 반환
 
     Optional<Ai> findTopByFoodOrderByCreatedAtDesc(Food food);
+
+    Optional<Ai> findTopByFoodNameOrderByCreatedAtDesc(String name);
 }

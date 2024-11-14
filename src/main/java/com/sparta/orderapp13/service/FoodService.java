@@ -51,7 +51,8 @@ public class FoodService {
         foodRepository.save(food);
 
         // AI 기록 조회: 동일한 음식 이름으로 가장 최근에 생성된 설명이 있는지 확인
-        Optional<Ai> latestAi = aiRepository.findTopByFoodOrderByCreatedAtDesc(food);
+//        Optional<Ai> latestAi = aiRepository.findTopByFoodOrderByCreatedAtDesc(food);
+        Optional<Ai> latestAi = aiRepository.findTopByFoodNameOrderByCreatedAtDesc(requestDto.getName());
         if (latestAi.isPresent()) {
             // 최신 설명이 있으면 이를 음식 설명에 설정
             food.setDescription(latestAi.get().getResponseText());
@@ -66,6 +67,7 @@ public class FoodService {
             // 새롭게 생성한 AI 기록을 DB에 저장
             Ai aiRecord = new Ai();
             aiRecord.setFood(food);
+            aiRecord.setFoodName(food.getFoodName());
             aiRecord.setRequestText(prompt);
             aiRecord.setResponseText(cleanDescription); // 가공된 설명 텍스트 설정
             aiRecord.setCreatedBy("AI 시스템"); // 생성자 기본값 설정
