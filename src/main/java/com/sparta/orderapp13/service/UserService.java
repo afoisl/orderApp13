@@ -30,6 +30,7 @@ public class UserService {
     public void signup(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+        String name = requestDto.getName();
 
         // 중복된 회원 확인
         Optional<User> found = userRepository.findByUsername(username);
@@ -39,7 +40,7 @@ public class UserService {
 
         UserRoleEnum role = requestDto.isAdmin() ? UserRoleEnum.ADMIN : UserRoleEnum.USER;
 
-        User user = new User(username, encodedPassword, role);
+        User user = new User(username, encodedPassword, name, role);
         userRepository.save(user);
     }
 

@@ -41,9 +41,8 @@ public class Store {
     @Column(nullable = false)
     private int postalCode;
 
-    @Setter
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(nullable = false)
@@ -59,7 +58,7 @@ public class Store {
     private boolean isDeleted = false;
 
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private String createdBy;

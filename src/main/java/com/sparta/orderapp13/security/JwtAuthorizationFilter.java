@@ -1,6 +1,6 @@
-package com.sparta.orderapp13.jwt;
+package com.sparta.orderapp13.security;
 
-import com.sparta.orderapp13.security.UserDetailsServiceImpl;
+import com.sparta.orderapp13.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

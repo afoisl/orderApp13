@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -32,6 +33,9 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderFood> orderFoodList = new ArrayList<>();
+
     @OneToMany(mappedBy = "order")
     private List<StoreOrder> storeOrderList = new ArrayList<>();
 
@@ -39,12 +43,12 @@ public class Order {
     private Payment payment;
 
     @Column
-    @Enumerated
-    private OrderType orderType;
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType = OrderType.ONLINE_ORDER;
 
     @Column
-    @Enumerated
-    private OrderStatus orderStatus;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus = OrderStatus.ORDER_PENDING;
 
     @Column
     @Size(max = 200)
@@ -61,7 +65,7 @@ public class Order {
     private String deliveryInstructions;
 
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private String createdBy;
@@ -78,9 +82,9 @@ public class Order {
     @Column
     private String deletedBy;
 
-    public Order(OrderRequestDto requestDto, int totalPrice) {
+    public Order(OrderRequestDto requestDto, int totalPrice, User user) {
         this.orderId = UUID.randomUUID();
-//        this.user = user;
+        this.user = user;
         try {
             this.orderType = OrderType.valueOf(requestDto.getOrderType().toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -91,8 +95,6 @@ public class Order {
         this.deliveryAddress = requestDto.getDeliveryAddress();
         this.deliveryInstructions = requestDto.getDeliveryInstructions();
         this.totalPrice = totalPrice;
-//        StoreOrder storeOrder = new StoreOrder(orderId, requestDto.getStoreId());
-//        this.storeOrderList.add(storeOrder);
     }
 
     public void cancel() {
