@@ -1,45 +1,47 @@
 package com.sparta.orderapp13.entity;
 
 import com.sparta.orderapp13.dto.StoreRequestDto;
+import com.sparta.orderapp13.repository.CategoryRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
+@Setter
 @Getter
 @Entity
 @Table(name = "p_store")
 public class Store {
 
     @Id
-    @GeneratedValue
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "storeId", nullable = false, updatable = false, unique = true)
     private UUID storeId;
 
     @Column(nullable = false)
-    @Max(100)
+    @Size(max = 100)
     private String region;
 
     @Column(nullable = false)
-    @Max(100)
+    @Size(max = 100)
     private String city;
 
     @Column(nullable = false)
-    @Max(255)
+    @Size(max = 255)
     private String detailAddress;
 
     @Column(nullable = false)
     private int postalCode;
 
+    @Setter
     @ManyToOne
     @JoinColumn
     private Category category;
@@ -74,22 +76,22 @@ public class Store {
     @Column
     private String deletedBy;
 
-    public Store(StoreRequestDto requestDto) {
+    public Store(StoreRequestDto requestDto, Category category) {
         this.region = requestDto.getRegion();
         this.city = requestDto.getCity();
         this.detailAddress = requestDto.getDetailAddress();
         this.postalCode = requestDto.getPostalCode();
-        this.category = requestDto.getCategory();
+        this.category = category;
         this.storeName = requestDto.getStoreName();
         this.storeNumber = requestDto.getStoreNumber();
     }
 
-    public void update(StoreRequestDto requestDto) {
+    public void update(StoreRequestDto requestDto, Category category) {
         this.region = requestDto.getRegion();
         this.city = requestDto.getCity();
         this.detailAddress = requestDto.getDetailAddress();
         this.postalCode = requestDto.getPostalCode();
-        this.category = requestDto.getCategory();
+        this.category = category;
         this.storeName = requestDto.getStoreName();
         this.storeNumber = requestDto.getStoreNumber();
     }

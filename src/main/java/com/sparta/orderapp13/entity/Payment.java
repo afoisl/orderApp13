@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "payment")
+@Table(name = "p_payment")
 public class Payment {
 
     @Id

@@ -3,12 +3,14 @@ package com.sparta.orderapp13.entity;
 import com.sparta.orderapp13.dto.OrderRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
+import javax.crypto.Mac;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "orders")
+@Table(name = "p_orders")
 public class Order {
 
     @Id
@@ -45,7 +47,7 @@ public class Order {
     private OrderStatus orderStatus;
 
     @Column
-    @Max(200)
+    @Size(max = 200)
     private String orderInstructions;
 
     @Column
@@ -55,7 +57,7 @@ public class Order {
     private String deliveryAddress;
 
     @Column
-    @Max(200)
+    @Size(max = 200)
     private String deliveryInstructions;
 
     @Column
@@ -78,7 +80,7 @@ public class Order {
 
     public Order(OrderRequestDto requestDto, int totalPrice) {
         this.orderId = UUID.randomUUID();
-        this.user = user;
+//        this.user = user;
         try {
             this.orderType = OrderType.valueOf(requestDto.getOrderType().toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -89,8 +91,8 @@ public class Order {
         this.deliveryAddress = requestDto.getDeliveryAddress();
         this.deliveryInstructions = requestDto.getDeliveryInstructions();
         this.totalPrice = totalPrice;
-        StoreOrder storeOrder = new StoreOrder(orderId, requestDto.getStoreId());
-        this.storeOrderList.add(storeOrder);
+//        StoreOrder storeOrder = new StoreOrder(orderId, requestDto.getStoreId());
+//        this.storeOrderList.add(storeOrder);
     }
 
     public void cancel() {

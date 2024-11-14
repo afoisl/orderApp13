@@ -3,10 +3,7 @@ package com.sparta.orderapp13.service;
 import com.sparta.orderapp13.dto.OrderRequestDto;
 import com.sparta.orderapp13.dto.OrderResponseDto;
 import com.sparta.orderapp13.dto.OrderUpdateDto;
-import com.sparta.orderapp13.entity.Order;
-import com.sparta.orderapp13.entity.OrderFood;
-import com.sparta.orderapp13.entity.OrderStatus;
-import com.sparta.orderapp13.entity.User;
+import com.sparta.orderapp13.entity.*;
 import com.sparta.orderapp13.repository.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -39,22 +36,22 @@ public class OrderService {
         return new OrderResponseDto(order);
     }
 
-//    public Page<OrderResponseDto> getOrders(User user, int page, int size, String sortBy, boolean isAsc) {
-//        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
-//        Sort sort = Sort.by(direction, sortBy);
-//        Pageable pageable = PageRequest.of(page, size, sort);
-//
-//        Role role = role.getRole();
-//
-//        Page<Order> orderList;
-//
-//        if (role == Role.USER) {
-//            orderList = orderRepository.findAllByUser(user, pageable);
-//        } else {
-//            orderList = orderRepository.findAll(pageable);
-//        }
-//        return orderList.map(order -> new OrderResponseDto());
-//    }
+    public Page<OrderResponseDto> getOrders(User user, int page, int size, String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        UserRoleEnum role = user.getRole();
+
+        Page<Order> orderList;
+
+        if (role == UserRoleEnum.USER) {
+            orderList = orderRepository.findAllByUser(user, pageable);
+        } else {
+            orderList = orderRepository.findAll(pageable);
+        }
+        return orderList.map(order -> new OrderResponseDto());
+    }
 
     @Transactional
     public OrderUpdateDto confirmOrder(OrderUpdateDto requestDto) {
