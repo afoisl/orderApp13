@@ -62,4 +62,21 @@ public class User {
     public boolean isPublic() {
         return isPublic;
     }
+
+    // Setter 메서드들 추가
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(UserRoleEnum role) {
+        this.role = role;
+    }
 }
