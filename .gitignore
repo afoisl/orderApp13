@@ -23,6 +23,7 @@ bin/
 
 ### IntelliJ IDEA ###
 application.properties
+resources/properties/env.properties
 src/main/resources/application.properties
 src/main/resources/properties/env.properties
 
