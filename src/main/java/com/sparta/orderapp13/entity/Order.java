@@ -3,12 +3,15 @@ package com.sparta.orderapp13.entity;
 import com.sparta.orderapp13.dto.OrderRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
+import javax.crypto.Mac;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,9 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderFood> orderFoodList = new ArrayList<>();
+
     @OneToMany(mappedBy = "order")
     private List<StoreOrder> storeOrderList = new ArrayList<>();
 
@@ -36,15 +42,15 @@ public class Order {
     private Payment payment;
 
     @Column
-    @Enumerated
-    private OrderType orderType;
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType = OrderType.ONLINE_ORDER;
 
     @Column
-    @Enumerated
-    private OrderStatus orderStatus;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus = OrderStatus.ORDER_PENDING;
 
     @Column
-    @Max(200)
+    @Size(max = 200)
     private String orderInstructions;
 
     @Column
@@ -54,11 +60,11 @@ public class Order {
     private String deliveryAddress;
 
     @Column
-    @Max(200)
+    @Size(max = 200)
     private String deliveryInstructions;
 
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private String createdBy;
@@ -75,7 +81,7 @@ public class Order {
     @Column
     private String deletedBy;
 
-    public Order(OrderRequestDto requestDto, int totalPrice) {
+    public Order(OrderRequestDto requestDto, int totalPrice, User user) {
         this.orderId = UUID.randomUUID();
         this.user = user;
         try {
@@ -88,8 +94,6 @@ public class Order {
         this.deliveryAddress = requestDto.getDeliveryAddress();
         this.deliveryInstructions = requestDto.getDeliveryInstructions();
         this.totalPrice = totalPrice;
-        StoreOrder storeOrder = new StoreOrder(orderId, requestDto.getStoreId());
-        this.storeOrderList.add(storeOrder);
     }
 
     public void cancel() {

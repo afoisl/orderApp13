@@ -1,91 +1,100 @@
 package com.sparta.orderapp13.entity;
 
 import com.sparta.orderapp13.dto.StoreRequestDto;
+import com.sparta.orderapp13.repository.CategoryRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
+@Setter
 @Getter
 @Entity
 @Table(name = "p_store")
 public class Store {
 
     @Id
-    @GeneratedValue
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "storeId", nullable = false, updatable = false, unique = true)
     private UUID storeId;
 
-    @Column(name = "region", nullable = false)
-    @Max(100)
+    @Column(nullable = false)
+    @Size(max = 100)
     private String region;
 
-    @Column(name = "city", nullable = false)
-    @Max(100)
+    @Column(nullable = false)
+    @Size(max = 100)
     private String city;
 
-    @Column(name = "detailAddress", nullable = false)
-    @Max(255)
+    @Column(nullable = false)
+    @Size(max = 255)
     private String detailAddress;
 
-    @Column(name = "postalCode", nullable = false)
+    @Column(nullable = false)
     private int postalCode;
 
     @ManyToOne
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @Column(name = "storeName", nullable = false)
+    @Column(nullable = false)
     private String storeName;
 
-    @Column(name = "storeNumber", nullable = false)
+    @Column(nullable = false)
     private String storeNumber;
 
-    @Column(name = "isOpen")
+    @Column
     private boolean isOpen = false;
 
-    @Column(name = "isDeleted")
+    @Column
     private boolean isDeleted = false;
 
-    @Column(name = "createdAt", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "createdBy", length = 100)
+    @Column
     private String createdBy;
 
-    @Column(name = "updatedAt")
+    @Column
     private LocalDateTime updatedAt;
 
-    @Column(name = "updatedBy", length = 100)
+    @Column
     private String updatedBy;
 
-    @Column(name = "deletedAt")
+    @Column
     private LocalDateTime deletedAt;
 
-    @Column(name = "deletedBy", length = 100)
+    @Column
     private String deletedBy;
 
-    public Store(StoreRequestDto requestDto) {
+    @OneToMany(mappedBy = "store")
+    private List<Food> foods;
+
+    public Store(StoreRequestDto requestDto, Category category) {
         this.region = requestDto.getRegion();
         this.city = requestDto.getCity();
         this.detailAddress = requestDto.getDetailAddress();
         this.postalCode = requestDto.getPostalCode();
-        this.category = requestDto.getCategory();
+        this.category = category;
         this.storeName = requestDto.getStoreName();
         this.storeNumber = requestDto.getStoreNumber();
     }
 
-    public void update(StoreRequestDto requestDto) {
+    public void update(StoreRequestDto requestDto, Category category) {
         this.region = requestDto.getRegion();
         this.city = requestDto.getCity();
         this.detailAddress = requestDto.getDetailAddress();
         this.postalCode = requestDto.getPostalCode();
-        this.category = requestDto.getCategory();
+        this.category = category;
         this.storeName = requestDto.getStoreName();
         this.storeNumber = requestDto.getStoreNumber();
     }

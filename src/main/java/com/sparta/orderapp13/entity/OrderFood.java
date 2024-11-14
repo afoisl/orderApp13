@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "p_order_food")
 public class OrderFood {
 
     @Id
@@ -30,7 +32,7 @@ public class OrderFood {
     private int quantity;
 
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private String createdBy;
@@ -47,4 +49,9 @@ public class OrderFood {
     @Column
     private String deletedBy;
 
+    public OrderFood(Order order, Food food, int quantity) {
+        this.order = order;
+        this.food = food;
+        this.quantity = quantity;
+    }
 }

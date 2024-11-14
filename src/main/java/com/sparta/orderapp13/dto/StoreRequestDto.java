@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,5 +20,5 @@ public class StoreRequestDto {
     private String city;
     private String detailAddress;
     private int postalCode;
-    private Category category;
+    private UUID categoryId;
 }

@@ -1,9 +1,7 @@
 package com.sparta.orderapp13.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "p_users")
@@ -11,13 +9,17 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
+    @Email
     @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -28,9 +30,10 @@ public class User {
     }
 
     // 모든 필드를 포함한 생성자
-    public User(String username, String password, UserRoleEnum role) {
+    public User(String username, String password, String name, UserRoleEnum role) {
         this.username = username;
         this.password = password;
+        this.name = name;
         this.role = role;
     }
 

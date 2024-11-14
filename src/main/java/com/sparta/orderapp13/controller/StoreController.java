@@ -18,6 +18,9 @@ public class StoreController {
 
     @PostMapping("/stores")
     public StoreResponseDto enroll(@RequestBody StoreRequestDto requestDto) {
+        System.out.println(requestDto.getCity());
+        System.out.println(requestDto.getStoreName());
+        System.out.println(requestDto.getCategoryId());
         return storeService.enroll(requestDto);
     }
 
