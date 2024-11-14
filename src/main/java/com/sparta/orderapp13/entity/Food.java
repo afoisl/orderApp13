@@ -25,6 +25,10 @@ public class Food {
     @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "storeId", nullable = false)
+    private Store store;
+
     @Column(name = "foodName", length = 255, nullable = false)
     private String foodName;
 

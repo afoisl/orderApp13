@@ -24,6 +24,9 @@ public class Ai {
     @JoinColumn(name = "foodId", nullable = false)
     private Food food;
 
+    @Column(name = "foodName", nullable = false)
+    private String foodName;
+
     @Column(name = "requestText", length = 1024, nullable = false)
     private String requestText;
 
@@ -37,7 +40,7 @@ public class Ai {
     private String createdBy;
 
     @Column(name = "updatedAt")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "updatedBy", length = 100)
     private String updatedBy;
