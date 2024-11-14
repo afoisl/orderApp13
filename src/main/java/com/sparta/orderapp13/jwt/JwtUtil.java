@@ -29,20 +29,25 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        byte[] bytes = Base64.getDecoder().decode(secretKey);
-        key = Keys.hmacShaKeyFor(bytes);
+        try {
+            byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+            this.key = Keys.hmacShaKeyFor(keyBytes);
+        } catch (IllegalArgumentException e) {
+            logger.error("JWT Secret Key 초기화 중 오류 발생: 올바른 Base64 인코딩 문자열을 사용해야 합니다.");
+            throw new IllegalStateException("JWT Secret Key가 유효하지 않습니다.");
+        }
     }
 
     // JWT 생성 메서드
     public String createToken(String username, UserRoleEnum role) {
-        Date date = new Date();
+        Date now = new Date();
 
         return BEARER_PREFIX +
                 Jwts.builder()
                         .setSubject(username)
-                        .claim("auth", role)
-                        .setExpiration(new Date(date.getTime() + TOKEN_TIME))
-                        .setIssuedAt(date)
+                        .claim("role", role.name()) // 역할을 String으로 저장
+                        .setExpiration(new Date(now.getTime() + TOKEN_TIME))
+                        .setIssuedAt(now)
                         .signWith(key, signatureAlgorithm)
                         .compact();
     }
@@ -61,7 +66,7 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            logger.error("Invalid JWT token");
+            logger.error("Invalid JWT token: " + e.getMessage());
             return false;
         }
     }

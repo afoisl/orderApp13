@@ -26,7 +26,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null && jwtUtil.validateToken(token)) {
             Claims claims = jwtUtil.getUserInfoFromToken(token);
-            String username = claims.getSubject();
+            String username = claims.getSubject(); // 토큰에서 username 가져오기
+            String role = claims.get("role", String.class); // 역할 정보 가져오기
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(username, null, null);
