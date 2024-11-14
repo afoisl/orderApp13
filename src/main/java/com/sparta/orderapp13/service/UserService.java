@@ -1,4 +1,3 @@
-// UserService.java
 package com.sparta.orderapp13.service;
 
 import com.sparta.orderapp13.dto.LoginRequestDto;
@@ -33,7 +32,7 @@ public class UserService {
         String userEmail = requestDto.getUserEmail();
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
-        // 중복된 이메일 확인
+        // 중복된 이메일 확인 (이메일은 중복 안 됨)
         Optional<User> foundByEmail = userRepository.findByUserEmail(userEmail);
         if (foundByEmail.isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
@@ -42,7 +41,8 @@ public class UserService {
         // 기본 역할(CUSTOMER)로 사용자 생성
         UserRoleEnum role = UserRoleEnum.CUSTOMER;
 
-        User user = new User(requestDto.getName(), userEmail, encodedPassword, role);
+        // 이름 중복은 허용하고 이메일만 중복 불가
+        User user = new User(userEmail, requestDto.getName(), encodedPassword, role);
         userRepository.save(user);
     }
 

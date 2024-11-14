@@ -79,4 +79,8 @@ public class User {
     public void setRole(UserRoleEnum role) {
         this.role = role;
     }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
+    }
 }
