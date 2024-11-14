@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,6 @@ public class Payment {
     @Id
     @GeneratedValue
     @UuidGenerator
-    @Column(columnDefinition = "BINARY(16)")
     private UUID paymentId;
 
     @OneToOne
