@@ -19,7 +19,6 @@ public class Payment {
     @Id
     @GeneratedValue
     @UuidGenerator
-    @Column(columnDefinition = "BINARY(16)")
     private UUID paymentId;
 
     @OneToOne
