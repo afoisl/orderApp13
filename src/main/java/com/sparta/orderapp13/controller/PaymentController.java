@@ -35,4 +35,10 @@ public class PaymentController {
     public PaymentResponseDto get(@PathVariable UUID paymentId) {
         return paymentService.get(paymentId);
     }
+
+    @PatchMapping("/payment/{paymentId}")
+    public UUID cancel(@PathVariable UUID paymentId) {
+        return paymentService.cancel(paymentId);
+    }
+
 }

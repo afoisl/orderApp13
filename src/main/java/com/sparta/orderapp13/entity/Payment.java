@@ -61,5 +61,10 @@ public class Payment {
         this.paymentMethod = PaymentMethod.valueOf(paymentMethod);
         this.paymentStatus = PaymentStatus.valueOf(paymentStatus);
     }
+
+    public void cancel() {
+        this.paymentStatus = PaymentStatus.PAYMENT_CANCELED;
+        this.deletedAt = LocalDateTime.now();
+    }
 }
 
