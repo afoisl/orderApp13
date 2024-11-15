@@ -142,7 +142,9 @@ public class ReviewService {
         responseDto.setRating(review.getRating());
         responseDto.setReviewText(review.getReviewText());
         responseDto.setReplyText(review.getReplyText());
+        responseDto.setCreatedAt(review.getCreatedAt());
         responseDto.setCreatedBy(review.getCreatedBy());
+        responseDto.setUpdatedAt(review.getUpdatedAt());
         responseDto.setUpdatedBy(review.getUpdatedBy());
         return responseDto;
     }
