@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### env ####
+src/main/resources/properties/env.properties
+
 
 ### STS ###
 .apt_generated
@@ -20,6 +23,11 @@ bin/
 
 ### IntelliJ IDEA ###
 application.properties
+resources/properties/env.properties
+src/main/resources/application.properties
+# Add to .gitignore to prevent tracking
+src/main/resources/properties/env.properties
+
 
 .idea
 *.iws

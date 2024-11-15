@@ -1,7 +1,12 @@
 package com.sparta.orderapp13.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "p_users")
 public class User {
@@ -10,6 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId; // PK로 설정된 userId
 
+    @Email
     @Column(nullable = false, unique = true)
     private String userEmail; // 유일한 식별자로 사용될 이메일
 
@@ -38,49 +44,4 @@ public class User {
         this.role = role;
     }
 
-    // Getter 메서드들
-    public Long getUserId() {
-        return userId;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public UserRoleEnum getRole() {
-        return role;
-    }
-
-    public boolean isPublic() {
-        return isPublic;
-    }
-
-    // Setter 메서드들 추가
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(UserRoleEnum role) {
-        this.role = role;
-    }
-
-    public void setPublic(boolean isPublic) {
-        this.isPublic = isPublic;
-    }
 }

@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -41,9 +42,8 @@ public class Store {
     @Column(nullable = false)
     private int postalCode;
 
-    @Setter
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(nullable = false)
@@ -59,7 +59,7 @@ public class Store {
     private boolean isDeleted = false;
 
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private String createdBy;
@@ -75,6 +75,9 @@ public class Store {
 
     @Column
     private String deletedBy;
+
+    @OneToMany(mappedBy = "store")
+    private List<Food> foods;
 
     public Store(StoreRequestDto requestDto, Category category) {
         this.region = requestDto.getRegion();

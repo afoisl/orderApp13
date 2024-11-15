@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Console;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,9 +26,11 @@ public class StoreService {
     @Transactional
     public StoreResponseDto enroll(StoreRequestDto requestDto) {
 
+        System.out.println(requestDto.getCategoryId());
         // 카테고리 조회
         Category category = categoryRepository.findById(requestDto.getCategoryId()).orElseThrow(()->
                 new IllegalArgumentException("존재하지 않는 카테고리입니다."));
+
 
         // requestDto 에 담긴 정보로 store 객체 생성
         Store store = new Store(requestDto, category);
@@ -38,12 +41,12 @@ public class StoreService {
         return new StoreResponseDto(store);
     }
 
-//    public List<StoreResponseDto> getAll(String categoryName) {
-//        return storeRepository.findAllByCategoryName(queryFactory, categoryName)
-//                .stream()
-//                .map(StoreResponseDto::new)
-//                .toList();
-//    }
+    public List<StoreResponseDto> getAll(String categoryName) {
+        return storeRepository.findAllByCategoryName(queryFactory, categoryName)
+                .stream()
+                .map(StoreResponseDto::new)
+                .toList();
+    }
 
     public StoreResponseDto getStore(UUID storeId) {
         // 가게 조회

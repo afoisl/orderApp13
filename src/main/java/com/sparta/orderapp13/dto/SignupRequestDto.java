@@ -1,36 +1,24 @@
+
 package com.sparta.orderapp13.dto;
 
-public class SignupRequestDto {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class SignupRequestDto {
+    @NotBlank
+    @Email
     private String userEmail;
-    private String name;
+
+    @NotBlank
+    @Size(min = 8, max = 30)
     private String password;
 
-    // 기본 생성자 및 getter/setter 추가
-    public SignupRequestDto() {
-    }
+    @NotBlank
+    private String name;
 
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

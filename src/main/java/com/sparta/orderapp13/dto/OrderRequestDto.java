@@ -12,12 +12,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 public class OrderRequestDto {
 
-    private String userId;
+    private Long userId;
     private UUID storeId;
-    private List<OrderFood> foodList;
+    private List<OrderFoodDto> foodList;
     private String paymentMethod;
     private String orderType;
     private String orderInstructions;
