@@ -1,5 +1,6 @@
-package com.sparta.orderapp13.jwt;
+package com.sparta.orderapp13.security;
 
+import com.sparta.orderapp13.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

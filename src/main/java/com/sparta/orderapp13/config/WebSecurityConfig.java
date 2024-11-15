@@ -1,6 +1,6 @@
 package com.sparta.orderapp13.config;
 
-import com.sparta.orderapp13.jwt.JwtAuthenticationFilter;
+import com.sparta.orderapp13.security.JwtAuthenticationFilter;
 import com.sparta.orderapp13.jwt.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
