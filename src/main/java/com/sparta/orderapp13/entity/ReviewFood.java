@@ -6,36 +6,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "p_review")
-public class Review {
+@Table(name = "p_review_food")
+public class ReviewFood {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "reviewId", nullable = false, updatable = false, unique = true)
-    private UUID reviewId;
+    @Column(name = "reviewFoodId", nullable = false, updatable = false, unique = true)
+    private UUID reviewFoodId;
 
     @ManyToOne
-    @JoinColumn(name = "storeId", nullable = false)
-    private Store store;
+    @JoinColumn(name = "reviewId", nullable = false)
+    private Review review;
 
-    @Column(name = "rating", nullable = false)
-    private int rating;
-
-    @Column(name = "reviewText", length = 255)
-    private String reviewText;
-
-    @Column(name = "replyText", length = 255)
-    private String replyText;
-
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    private List<ReviewFood> reviewFoods;
+    @ManyToOne
+    @JoinColumn(name = "foodId", nullable = false)
+    private Food food;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -54,4 +45,9 @@ public class Review {
 
     @Column(name = "deletedBy", length = 100)
     private String deletedBy;
+
+    public ReviewFood(Review review, Food food) {
+        this.review = review;
+        this.food = food;
+    }
 }

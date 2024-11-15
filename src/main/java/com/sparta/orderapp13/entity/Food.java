@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -40,6 +41,9 @@ public class Food {
 
     @Column(name = "description", length = 500)
     private String description;
+
+    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
+    private List<ReviewFood> reviewFoods;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
