@@ -1,7 +1,8 @@
 package com.sparta.orderapp13.config;
 
-import com.sparta.orderapp13.security.JwtAuthenticationFilter;
 import com.sparta.orderapp13.jwt.JwtUtil;
+import com.sparta.orderapp13.security.JwtAuthenticationFilter;
+import com.sparta.orderapp13.security.JwtAuthorizationFilter;
 import com.sparta.orderapp13.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,16 +46,31 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    public JwtAuthorizationFilter jwtAuthorizationFilter() {
+        return new JwtAuthorizationFilter(jwtUtil, userDetailsService);
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // CSRF 비활성화
                 .csrf(csrf -> csrf.disable())
+
+                // CORS 설정
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+                // 세션을 사용하지 않고 JWT만으로 인증
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                // 요청 경로에 따른 권한 설정
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/user/login", "/api/user/signup").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/user/login", "/api/user/signup").permitAll() // 로그인/회원가입 허용
+                        .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 )
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+                // JWT 필터 추가
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
 
         return http.build();
     }
