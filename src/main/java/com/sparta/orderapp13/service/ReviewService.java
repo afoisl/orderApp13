@@ -3,8 +3,12 @@ package com.sparta.orderapp13.service;
 import com.sparta.orderapp13.dto.ReviewReplyRequestDto;
 import com.sparta.orderapp13.dto.ReviewRequestDto;
 import com.sparta.orderapp13.dto.ReviewResponseDto;
+import com.sparta.orderapp13.entity.Food;
 import com.sparta.orderapp13.entity.Review;
+import com.sparta.orderapp13.entity.ReviewFood;
 import com.sparta.orderapp13.entity.Store;
+import com.sparta.orderapp13.repository.FoodRepository;
+import com.sparta.orderapp13.repository.ReviewFoodRepository;
 import com.sparta.orderapp13.repository.ReviewRepository;
 import com.sparta.orderapp13.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,8 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
+    private final ReviewFoodRepository reviewFoodRepository;
+    private final FoodRepository foodRepository;
 
     // 리뷰 생성
     @Transactional
@@ -34,15 +40,24 @@ public class ReviewService {
         review.setStore(store);
         review.setRating(requestDto.getRating());
         review.setReviewText(requestDto.getReviewText());
-
         // 생성자, 수정자 정보 설정. null일 경우 기본값 설정
         review.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
         review.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
 
-//        review.setCreatedBy(requestDto.getCreatedBy());
-//        review.setCreatedAt(LocalDateTime.now());
-
         reviewRepository.save(review);
+
+        // 리뷰에 연결된 음식 정보 처리 및 저장
+        List<ReviewFood> reviewFoods = new ArrayList<>();
+        for (UUID foodId : requestDto.getFoodIds()) {
+            Food food = foodRepository.findById(foodId)
+                    .orElseThrow(() -> new IllegalArgumentException("Food not found"));
+            ReviewFood reviewFood = new ReviewFood(review, food);
+            reviewFoods.add(reviewFood);
+        }
+
+        reviewFoodRepository.saveAll(reviewFoods); // 연결 엔티티들 저장
+        review.setReviewFoods(reviewFoods); // Review 엔티티에 음식 리스트 설정
+
         return convertToResponseDto(review);
     }
 
@@ -110,15 +125,21 @@ public class ReviewService {
 
     // Review 엔티티를 ReviewResponseDto로 변환
     private ReviewResponseDto convertToResponseDto(Review review) {
-        return new ReviewResponseDto(
-                review.getReviewId(),
-                review.getRating(),
-                review.getReviewText(),
-                review.getReplyText(),
-                review.getCreatedAt(),
-                review.getCreatedBy(),
-                review.getUpdatedAt(),
-                review.getUpdatedBy()
-        );
+        ReviewResponseDto responseDto = new ReviewResponseDto();
+        responseDto.setReviewId(review.getReviewId());
+
+        // 중복된 음식 이름을 제거하고 리스트로 설정
+        List<String> foodNames = review.getReviewFoods().stream()
+                .map(reviewFood -> reviewFood.getFood().getFoodName())
+                .distinct() // 중복된 음식 이름 제거
+                .collect(Collectors.toList());
+        responseDto.setFoodNames(foodNames); // 음식 이름 리스트 설정
+
+        responseDto.setRating(review.getRating());
+        responseDto.setReviewText(review.getReviewText());
+        responseDto.setReplyText(review.getReplyText());
+        responseDto.setCreatedBy(review.getCreatedBy());
+        responseDto.setUpdatedBy(review.getUpdatedBy());
+        return responseDto;
     }
 }
