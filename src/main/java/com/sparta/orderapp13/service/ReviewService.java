@@ -121,12 +121,12 @@ public class ReviewService {
 
     // 리뷰 삭제 (소프트 삭제)
     @Transactional
-    public void deleteReview(UUID reviewId, String deletedBy) {
+    public void deleteReview(UUID reviewId) {
         Review review = reviewRepository.findByReviewIdAndDeletedAtIsNull(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found"));
 
         review.setDeletedAt(LocalDateTime.now());
-        review.setDeletedBy(deletedBy);
+//        review.setDeletedBy(deletedBy);
     }
 
     // Review 엔티티를 ReviewResponseDto로 변환

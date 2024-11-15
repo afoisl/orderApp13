@@ -62,9 +62,8 @@ public class ReviewController {
     // 리뷰 삭제
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteReview(
-            @PathVariable UUID reviewId,
-            @RequestParam String deletedBy) {
-        reviewService.deleteReview(reviewId, deletedBy);
+            @PathVariable UUID reviewId) {
+        reviewService.deleteReview(reviewId);
         return ResponseEntity.noContent().build();
     }
 }
