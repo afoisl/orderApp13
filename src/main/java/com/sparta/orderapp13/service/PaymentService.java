@@ -36,4 +36,24 @@ public class PaymentService {
 
         return new PaymentResponseDto(payment);
     }
+
+    public List<PaymentResponseDto> getAll(User user) {
+        // 권한별로 조회
+        UserRoleEnum role = user.getRole();
+
+        List<Payment> paymentList;
+
+        if (role == UserRoleEnum.USER) {
+            paymentList = paymentRepository.findAllByOrderUser(user);
+        } else {
+            paymentList = paymentRepository.findAll();
+        }
+
+        List<PaymentResponseDto> paymentDtoList = new ArrayList<>();
+        for (Payment payment : paymentList) {
+            paymentDtoList.add(new PaymentResponseDto(payment));
+        }
+
+        return paymentDtoList;
+    }
 }

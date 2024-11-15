@@ -23,4 +23,11 @@ public class PaymentController {
     public PaymentResponseDto create(@RequestBody PaymentRequestDto paymentRequestDto) {
         return paymentService.create(paymentRequestDto);
     }
+
+    @GetMapping("/payments/all")
+    public List<PaymentResponseDto> getAll(
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        return paymentService.getAll(userDetails.getUser());
+    }
 }
