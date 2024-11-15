@@ -10,6 +10,7 @@ import com.sparta.orderapp13.repository.AiRepository;
 import com.sparta.orderapp13.repository.CategoryRepository;
 import com.sparta.orderapp13.repository.FoodRepository;
 import com.sparta.orderapp13.repository.StoreRepository;
+import com.sparta.orderapp13.util.SizeValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -17,11 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -89,6 +86,9 @@ public class FoodService {
 
     // 카테고리별 음식 목록 조회 (삭제되지 않은 항목만)
     public List<FoodResponseDto> getFoodsByCategory(UUID categoryId, int page, int size, String sortBy) {
+        // 사이즈 검증 및 허용된 값으로 제한
+        size = SizeValidator.validateSize(size);
+
         Pageable pageable = PageRequest.of(page, size, org.springframework.data.domain.Sort.by(sortBy));
         List<Food> foods = foodRepository.findAllByCategoryId(categoryId, pageable);
         List<FoodResponseDto> responseDtoList = new ArrayList<>();
@@ -102,6 +102,9 @@ public class FoodService {
 
     // 음식 검색 (삭제되지 않은 항목만)
     public List<FoodResponseDto> searchFoods(String keyword, int page, int size) {
+        // 사이즈 검증 및 허용된 값으로 제한
+        size = SizeValidator.validateSize(size);
+
         Pageable pageable = PageRequest.of(page, size);
         List<Food> foods = foodRepository.findByName(keyword, pageable);
         List<FoodResponseDto> responseDtoList = new ArrayList<>();
