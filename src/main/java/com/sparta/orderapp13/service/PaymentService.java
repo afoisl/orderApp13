@@ -56,4 +56,12 @@ public class PaymentService {
 
         return paymentDtoList;
     }
+
+    public PaymentResponseDto get(UUID paymentId) {
+        // Payment 조회
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(()->
+                new IllegalArgumentException("결제 내역이 존재하지 않습니다."));
+
+        return new PaymentResponseDto(payment);
+    }
 }

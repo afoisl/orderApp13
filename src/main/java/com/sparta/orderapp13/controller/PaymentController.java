@@ -30,4 +30,9 @@ public class PaymentController {
     ) {
         return paymentService.getAll(userDetails.getUser());
     }
+
+    @GetMapping("/payment/{paymentId}")
+    public PaymentResponseDto get(@PathVariable UUID paymentId) {
+        return paymentService.get(paymentId);
+    }
 }
