@@ -43,11 +43,11 @@ public class PaymentService {
 
         List<Payment> paymentList;
 
-        if (role == UserRoleEnum.USER) {
-            paymentList = paymentRepository.findAllByOrderUser(user);
-        } else {
+//        if (role == UserRoleEnum.CUSTOMER) {
+//            paymentList = paymentRepository.findAllByOrderUser(user);
+//        } else {
             paymentList = paymentRepository.findAll();
-        }
+//        }
 
         List<PaymentResponseDto> paymentDtoList = new ArrayList<>();
         for (Payment payment : paymentList) {
