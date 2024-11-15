@@ -12,6 +12,7 @@ import com.sparta.orderapp13.repository.ReviewFoodRepository;
 import com.sparta.orderapp13.repository.ReviewRepository;
 import com.sparta.orderapp13.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -91,6 +92,7 @@ public class ReviewService {
 
 
     // 특정 가게의 모든 리뷰 조회
+    @Transactional
     public List<ReviewResponseDto> getReviewsByStoreId(UUID storeId) {
         List<Review> reviews = reviewRepository.findAllByStore_StoreIdAndDeletedAtIsNull(storeId);
 
@@ -129,6 +131,9 @@ public class ReviewService {
 
     // Review 엔티티를 ReviewResponseDto로 변환
     private ReviewResponseDto convertToResponseDto(Review review) {
+        // 명시적으로 reviewFoods 컬렉션을 초기화
+        Hibernate.initialize(review.getReviewFoods());
+
         ReviewResponseDto responseDto = new ReviewResponseDto();
         responseDto.setReviewId(review.getReviewId());
 
