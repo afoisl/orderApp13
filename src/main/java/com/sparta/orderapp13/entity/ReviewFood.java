@@ -38,10 +38,10 @@ public class ReviewFood {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "updatedBy", length = 100)
-    private String updatedBy
+    private String updatedBy;
 
     @Column(name = "deletedAt")
-    private LocalDateTime deletedAt = LocalDateTime.now();
+    private LocalDateTime deletedAt;
 
     @Column(name = "deletedBy", length = 100)
     private String deletedBy;
