@@ -29,13 +29,13 @@ public class Payment {
     @Column(name = "paymentAmount", nullable = false)
     private int paymentAmount;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "paymentMethod", nullable = false)
     private PaymentMethod paymentMethod;
 
-    @Enumerated
-    @Column(name = "status", nullable = false)
-    private PaymentStatus status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "paymentStatus", nullable = false)
+    private PaymentStatus paymentStatus;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -54,4 +54,12 @@ public class Payment {
 
     @Column(name = "deletedBy", length = 100)
     private String deletedBy;
+
+    public Payment(Order order, int paymentAmount, String paymentMethod, String paymentStatus) {
+        this.order = order;
+        this.paymentAmount = paymentAmount;
+        this.paymentMethod = PaymentMethod.valueOf(paymentMethod);
+        this.paymentStatus = PaymentStatus.valueOf(paymentStatus);
+    }
 }
+
