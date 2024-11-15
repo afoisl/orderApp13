@@ -17,10 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,6 +99,12 @@ public class FoodService {
 
     // 음식 검색 (삭제되지 않은 항목만)
     public List<FoodResponseDto> searchFoods(String keyword, int page, int size) {
+        // 허용된 건수 제한 설정 (10, 30, 50 중 하나, 기본값 10)
+        List<Integer> allowedSizes = Arrays.asList(10, 30, 50);
+        if (!allowedSizes.contains(size)) {
+            size = 10; // 기본값 설정
+        }
+
         Pageable pageable = PageRequest.of(page, size);
         List<Food> foods = foodRepository.findByName(keyword, pageable);
         List<FoodResponseDto> responseDtoList = new ArrayList<>();
