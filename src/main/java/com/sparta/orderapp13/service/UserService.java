@@ -32,16 +32,15 @@ public class UserService {
         String userEmail = requestDto.getUserEmail();
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
-        // 중복된 이메일 확인 (이메일은 중복 안 됨)
-        Optional<User> foundByEmail = userRepository.findByUserEmail(userEmail);
-        if (foundByEmail.isPresent()) {
+        // 이메일 중복 확인
+        if (userRepository.findByUserEmail(userEmail).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
         // 기본 역할(CUSTOMER)로 사용자 생성
         UserRoleEnum role = UserRoleEnum.CUSTOMER;
 
-        // 이름 중복은 허용하고 이메일만 중복 불가
+        // 사용자 객체 생성 및 저장
         User user = new User(userEmail, requestDto.getName(), encodedPassword, role);
         userRepository.save(user);
     }

@@ -5,6 +5,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class JwtUtil {
     private Key key;
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;  // 서명 알고리즘
 
-    public static final Logger logger = LoggerFactory.getLogger("JWT 관련 로그");
+    private static final Logger logger = LoggerFactory.getLogger("JWT 관련 로그");
 
     // Secret Key 초기화
     @PostConstruct
@@ -56,6 +57,27 @@ public class JwtUtil {
                         .compact();  // JWT 토큰 반환
     }
 
+    // JWT를 응답 헤더에 추가하는 메서드
+    public void addJwtToHeader(String token, HttpServletResponse response) {
+        response.setHeader(AUTHORIZATION_HEADER, BEARER_PREFIX + token);  // 응답 헤더에 JWT 추가
+        logger.info("JWT가 응답 헤더에 추가되었습니다.");
+    }
+
+    // JWT를 쿠키에 추가하는 메서드 (옵션)
+    public void addJwtToCookie(String token, HttpServletResponse response) {
+        response.addCookie(createCookie(token));
+        logger.info("JWT가 쿠키에 추가되었습니다.");
+    }
+
+    // 쿠키 생성 메서드 (옵션)
+    private jakarta.servlet.http.Cookie createCookie(String token) {
+        jakarta.servlet.http.Cookie cookie = new jakarta.servlet.http.Cookie(AUTHORIZATION_HEADER, BEARER_PREFIX + token);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge((int) (TOKEN_TIME / 1000));
+        return cookie;
+    }
+
     // 토큰에서 "Bearer " 부분을 제거하는 메서드
     public String substringToken(String token) {
         if (StringUtils.hasText(token) && token.startsWith(BEARER_PREFIX)) {
@@ -70,7 +92,7 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);  // 토큰 검증
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            logger.error("Invalid JWT token: " + e.getMessage());
+            logger.error("Invalid JWT token: {}", e.getMessage());
             return false;
         }
     }
@@ -84,7 +106,7 @@ public class JwtUtil {
     public String getJwtFromHeader(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            return bearerToken.substring(7);  // "Bearer " 이후의 토큰 반환
+            return bearerToken.substring(BEARER_PREFIX.length());  // "Bearer " 이후의 토큰 반환
         }
         return null;
     }
