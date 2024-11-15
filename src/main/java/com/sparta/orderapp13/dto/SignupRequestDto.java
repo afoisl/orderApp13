@@ -12,7 +12,7 @@ import lombok.Setter;
 public class SignupRequestDto {
     @NotBlank
     @Email
-    private String username;
+    private String userEmail;
 
     @NotBlank
     @Size(min = 8, max = 30)
@@ -21,6 +21,4 @@ public class SignupRequestDto {
     @NotBlank
     private String name;
 
-    private boolean admin = false;
-    private String adminToken = "";
 }
