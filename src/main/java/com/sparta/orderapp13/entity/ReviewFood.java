@@ -38,16 +38,12 @@ public class ReviewFood {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "updatedBy", length = 100)
-    private String updatedBy;
+    private String updatedBy
 
     @Column(name = "deletedAt")
-    private LocalDateTime deletedAt;
+    private LocalDateTime deletedAt = LocalDateTime.now();
 
     @Column(name = "deletedBy", length = 100)
     private String deletedBy;
 
-    public ReviewFood(Review review, Food food) {
-        this.review = review;
-        this.food = food;
-    }
 }

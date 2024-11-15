@@ -51,7 +51,11 @@ public class ReviewService {
         for (UUID foodId : requestDto.getFoodIds()) {
             Food food = foodRepository.findById(foodId)
                     .orElseThrow(() -> new IllegalArgumentException("Food not found"));
-            ReviewFood reviewFood = new ReviewFood(review, food);
+            ReviewFood reviewFood = new ReviewFood();
+            reviewFood.setReview(review);
+            reviewFood.setFood(food);
+            reviewFood.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
+            reviewFood.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
             reviewFoods.add(reviewFood);
         }
 
