@@ -79,6 +79,9 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<Food> foods;
 
+    @OneToMany(mappedBy = "store")
+    private List<Food> reviews;
+
     public Store(StoreRequestDto requestDto, Category category) {
         this.region = requestDto.getRegion();
         this.city = requestDto.getCity();

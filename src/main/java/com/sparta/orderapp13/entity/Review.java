@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -14,35 +13,28 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "p_food")
-public class Food {
+@Table(name = "p_review")
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "foodId", nullable = false, updatable = false, unique = true)
-    private UUID foodId;
-
-    @ManyToOne
-    @JoinColumn(name = "categoryId", nullable = false)
-    private Category category;
+    @Column(name = "reviewId", nullable = false, updatable = false, unique = true)
+    private UUID reviewId;
 
     @ManyToOne
     @JoinColumn(name = "storeId", nullable = false)
     private Store store;
 
-    @Column(name = "foodName", length = 255, nullable = false)
-    private String foodName;
+    @Column(name = "rating", nullable = false)
+    private int rating;
 
-    @Column(name = "foodPrice", nullable = false)
-    private Integer foodPrice;
+    @Column(name = "reviewText", length = 255)
+    private String reviewText;
 
-    @Column(name = "foodImg", length = 1024)
-    private String foodImg;
+    @Column(name = "replyText", length = 255)
+    private String replyText;
 
-    @Column(name = "description", length = 500)
-    private String description;
-
-    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<ReviewFood> reviewFoods;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
@@ -52,7 +44,7 @@ public class Food {
     private String createdBy;
 
     @Column(name = "updatedAt")
-    private LocalDateTime updatedAt = LocalDateTime.now(); // Default creation time
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "updatedBy", length = 100)
     private String updatedBy;

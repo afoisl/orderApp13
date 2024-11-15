@@ -83,7 +83,7 @@ public class OrderService {
 
         Page<Order> orderList;
 
-        if (role == UserRoleEnum.USER) {
+        if (role == UserRoleEnum.CUSTOMER) {
             orderList = orderRepository.findAllByUser(user, pageable);
         } else {
             orderList = orderRepository.findAll(pageable);
