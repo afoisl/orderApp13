@@ -37,8 +37,7 @@ public class UserController {
         return new ResponseEntity<>(new JwtResponse(token), HttpStatus.OK);
     }
 
-//    @PreAuthorize("hasRole('MASTER')")
-    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
+    @PreAuthorize("hasRole('MASTER')")
     @PatchMapping("/assign-manager")
     public ResponseEntity<String> assignManager(@RequestParam String username) {
         userService.assignManager(username);
