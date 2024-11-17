@@ -20,12 +20,12 @@ public class OrderFood {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderFoodId;
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "food_id")
     private Food food;
 
     @Column(nullable = false)

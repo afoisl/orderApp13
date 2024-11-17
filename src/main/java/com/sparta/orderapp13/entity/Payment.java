@@ -66,5 +66,10 @@ public class Payment {
         this.paymentStatus = PaymentStatus.PAYMENT_CANCELED;
         this.deletedAt = LocalDateTime.now();
     }
+
+    // Order 에서 User 가져오기
+    public User getOrderUser() {
+        return order.getUser();
+    }
 }
 

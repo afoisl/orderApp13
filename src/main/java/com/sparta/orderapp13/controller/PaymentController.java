@@ -19,11 +19,13 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
+    // 결제 생성
     @PostMapping("/payments")
     public PaymentResponseDto create(@RequestBody PaymentRequestDto paymentRequestDto) {
         return paymentService.create(paymentRequestDto);
     }
 
+    // 결제 전체 목록 조회
     @GetMapping("/payments/all")
     public List<PaymentResponseDto> getAll(
             @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -31,14 +33,15 @@ public class PaymentController {
         return paymentService.getAll(userDetails.getUser());
     }
 
+    // 결제 상세 조회
     @GetMapping("/payment/{paymentId}")
     public PaymentResponseDto get(@PathVariable UUID paymentId) {
         return paymentService.get(paymentId);
     }
 
+    // 결제 취소 (상태 변경)
     @PatchMapping("/payment/{paymentId}")
     public UUID cancel(@PathVariable UUID paymentId) {
         return paymentService.cancel(paymentId);
     }
-
 }

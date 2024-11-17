@@ -1,5 +1,6 @@
 package com.sparta.orderapp13.service;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.orderapp13.dto.PaymentRequestDto;
 import com.sparta.orderapp13.dto.PaymentResponseDto;
 import com.sparta.orderapp13.entity.Order;
@@ -21,6 +22,7 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
+    private final JPAQueryFactory queryFactory;
 
     public PaymentResponseDto create(PaymentRequestDto requestDto) {
         // Order 조회
@@ -43,11 +45,11 @@ public class PaymentService {
 
         List<Payment> paymentList;
 
-//        if (role == UserRoleEnum.CUSTOMER) {
-//            paymentList = paymentRepository.findAllByOrderUser(user);
-//        } else {
+        if (role == UserRoleEnum.CUSTOMER) {
+            paymentList = paymentRepository.findAllByOrderUser(user, queryFactory);
+        } else {
             paymentList = paymentRepository.findAll();
-//        }
+        }
 
         List<PaymentResponseDto> paymentDtoList = new ArrayList<>();
         for (Payment payment : paymentList) {

@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,22 +74,35 @@ public class OrderService {
         return totalPrice;
     }
 
-
+    // CUSTOMER 별 주문 전체 조회
+    @Transactional(readOnly = true)
     public Page<OrderResponseDto> getOrders(User user, int page, int size, String sortBy, boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
 
+        // 사용자 주문 조회
+        Page<Order> orderList = orderRepository.findAllByUser_UserId(user.getUserId(), pageable);
+        System.out.println(user.getUserId());
+        return orderList.map(order -> new OrderResponseDto(order, order.getOrderFoodList()));
+    }
+
+    // MASTER와 MANAGER 전체 주문 조회
+    @Transactional(readOnly = true)
+    public Page<OrderResponseDto> getOrdersByAdmin(User user, int page, int size, String sortBy, boolean isAsc) {
+
         UserRoleEnum role = user.getRole();
 
-        Page<Order> orderList;
-
-        if (role == UserRoleEnum.CUSTOMER) {
-            orderList = orderRepository.findAllByUser(user, pageable);
-        } else {
-            orderList = orderRepository.findAll(pageable);
+        if (role != UserRoleEnum.MASTER && role != UserRoleEnum.MANAGER) {
+            throw new AccessDeniedException("접근 권한이 없습니다.");
         }
-        return orderList.map(order -> new OrderResponseDto());
+
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Order> orderList = orderRepository.findAll(pageable);
+        return orderList.map(order -> new OrderResponseDto(order, order.getOrderFoodList()));
     }
 
     @Transactional

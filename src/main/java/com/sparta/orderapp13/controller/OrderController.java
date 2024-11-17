@@ -19,37 +19,55 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    // 주문 생성
     @PostMapping("/orders")
-    public OrderResponseDto createOrder(@RequestBody OrderRequestDto requestDto) {
+    public OrderResponseDto creatOrder(@RequestBody OrderRequestDto requestDto) {
         return orderService.createOrder(requestDto);
     }
 
+    // 유저별로 주문 전체 목록 조회
     @GetMapping("/orders")
     public Page<OrderResponseDto> getOrders(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("isAsc") boolean isAsc,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "sortBy", defaultValue = "createdAt") String sortBy,
+            @RequestParam(value = "isAsc", defaultValue = "true") boolean isAsc,
             @AuthenticationPrincipal UserDetailsImpl userDetails
             ) {
         return orderService.getOrders(userDetails.getUser(),page - 1, size, sortBy, isAsc);
     }
 
+    // 전체 주문 목록 조회 (관리자용)
+    @GetMapping("/orders/admin")
+    public Page<OrderResponseDto> getOrdersByAdmin(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam("isAsc") boolean isAsc,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        return orderService.getOrdersByAdmin(userDetails.getUser(),page - 1, size, sortBy, isAsc);
+    }
+
+    // 주문 확인 (상태 변경)
     @PatchMapping("/order/confirm")
     public OrderUpdateDto confirmOrder(@RequestBody OrderUpdateDto requestDto) {
         return orderService.confirmOrder(requestDto);
     }
 
+    // 주문중 (상태 변경)
     @PatchMapping("/order/delivering")
     public OrderUpdateDto deliveringOrder(@RequestBody OrderUpdateDto requestDto) {
         return orderService.deliveringOrder(requestDto);
     }
 
+    // 주문 완료 (상태 변경)
     @PatchMapping("/order/complete")
     public OrderUpdateDto completeOrder(@RequestBody OrderUpdateDto requestDto) {
         return orderService.completeOrder(requestDto);
     }
 
+    // 주문 취소 (상태 변경)
     @PatchMapping("/order/cancel/{orderId}")
     public void cancelOrder(@PathVariable UUID orderId) {
         orderService.cancelOrder(orderId);
