@@ -26,30 +26,24 @@ public class PaymentService {
 
     public PaymentResponseDto create(PaymentRequestDto requestDto) {
         // Order 조회
-        Order order = orderRepository.findById(requestDto.getOrderId()).orElseThrow(()->
-                new IllegalArgumentException("해당하는 주문이 존재하지 않습니다."));
+        Order order = orderRepository.findById(requestDto.getOrderId())
+                .orElseThrow((IllegalArgumentException::new));
 
         int paymentAmount = requestDto.getPaymentAmount();
         String paymentMethod = requestDto.getPaymentMethod();
         String paymentStatus = requestDto.getPaymentStatus();
 
         // Payment 객체 생성
-        Payment payment = paymentRepository.save(new Payment(order, paymentAmount, paymentMethod, paymentStatus));
+        Payment payment = paymentRepository.save(
+                new Payment(order, paymentAmount, paymentMethod, paymentStatus));
 
         return new PaymentResponseDto(payment);
     }
 
     public List<PaymentResponseDto> getAll(User user) {
-        // 권한별로 조회
-        UserRoleEnum role = user.getRole();
-
         List<Payment> paymentList;
 
-        if (role == UserRoleEnum.CUSTOMER) {
-            paymentList = paymentRepository.findAllByOrderUser(user, queryFactory);
-        } else {
-            paymentList = paymentRepository.findAll();
-        }
+        paymentList = paymentRepository.findAllByOrderUser(user, queryFactory);
 
         List<PaymentResponseDto> paymentDtoList = new ArrayList<>();
         for (Payment payment : paymentList) {
@@ -59,18 +53,31 @@ public class PaymentService {
         return paymentDtoList;
     }
 
+    public List<PaymentResponseDto> getAllByAdmin(User user) {
+            List<Payment> paymentList;
+
+            paymentList = paymentRepository.findAll();
+
+            List<PaymentResponseDto> paymentDtoList = new ArrayList<>();
+            for (Payment payment : paymentList) {
+                paymentDtoList.add(new PaymentResponseDto(payment));
+            }
+
+            return paymentDtoList;
+    }
+
     public PaymentResponseDto get(UUID paymentId) {
         // Payment 조회
-        Payment payment = paymentRepository.findById(paymentId).orElseThrow(()->
-                new IllegalArgumentException("결제 내역이 존재하지 않습니다."));
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow((IllegalArgumentException::new));
 
         return new PaymentResponseDto(payment);
     }
 
     public UUID cancel(UUID paymentId) {
         // Payment 조회
-        Payment payment = paymentRepository.findById(paymentId).orElseThrow(()->
-                new IllegalArgumentException("결제 내역이 존재하지 않습니다."));
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow((IllegalArgumentException::new));
 
         // PaymentStatue 바꾸기
         payment.cancel();

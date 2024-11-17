@@ -5,6 +5,7 @@ import com.sparta.orderapp13.dto.PaymentResponseDto;
 import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.PaymentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,14 @@ public class PaymentController {
         return paymentService.getAll(userDetails.getUser());
     }
 
+    @GetMapping("/payments/admin")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
+    public List<PaymentResponseDto> getAllByAdmin(
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        return paymentService.getAllByAdmin(userDetails.getUser());
+    }
+
     // 결제 상세 조회
     @GetMapping("/payment/{paymentId}")
     public PaymentResponseDto get(@PathVariable UUID paymentId) {
@@ -41,6 +50,7 @@ public class PaymentController {
 
     // 결제 취소 (상태 변경)
     @PatchMapping("/payment/{paymentId}")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public UUID cancel(@PathVariable UUID paymentId) {
         return paymentService.cancel(paymentId);
     }

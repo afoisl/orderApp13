@@ -23,6 +23,10 @@ public class Store {
     @Column(name = "storeId", nullable = false, updatable = false, unique = true)
     private UUID storeId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
+
     @Column(nullable = false)
     @Size(max = 100)
     private String region;
@@ -78,7 +82,8 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<Food> reviews;
 
-    public Store(StoreRequestDto requestDto, Category category) {
+    public Store(StoreRequestDto requestDto, Category category, User user) {
+        this.user = user;
         this.region = requestDto.getRegion();
         this.city = requestDto.getCity();
         this.detailAddress = requestDto.getDetailAddress();
