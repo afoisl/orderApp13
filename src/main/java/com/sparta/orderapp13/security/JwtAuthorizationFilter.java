@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j(topic = "JWT 검증 및 인가")
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
@@ -37,22 +40,25 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(token) && jwtUtil.validateToken(token)) {
             Claims claims = jwtUtil.getUserInfoFromToken(token);
             String username = claims.getSubject();
+            String role = claims.get("role", String.class); // JWT의 클레임에서 role 읽기
 
-            setAuthentication(username);
+            setAuthentication(username, role);
         }
 
         filterChain.doFilter(request, response);
     }
 
-    private void setAuthentication(String username) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+    private void setAuthentication(String username, String role) {
+        // 권한(role)을 GrantedAuthority로 변환
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
+
+        // Authentication 객체 생성
         Authentication authentication =
-                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                new UsernamePasswordAuthenticationToken(username, null, List.of(authority));
 
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authentication);
-        SecurityContextHolder.setContext(context);
+        // SecurityContext에 Authentication 설정
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        log.info("SecurityContext 인증 객체 설정 완료: {}", username);
+        log.info("SecurityContext 인증 객체 설정 완료: 사용자={}, 권한={}", username, authority);
     }
 }
