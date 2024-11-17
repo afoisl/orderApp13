@@ -6,6 +6,7 @@ import com.sparta.orderapp13.dto.ReviewResponseDto;
 import com.sparta.orderapp13.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ReviewController {
     }
 
     // 리뷰 수정
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'CUSTOMER')")
     @PutMapping("/{reviewId}")
     public ResponseEntity<ReviewResponseDto> updateReview(
             @PathVariable UUID reviewId,
@@ -46,6 +48,7 @@ public class ReviewController {
 
     // 리뷰 삭제
     @DeleteMapping("/{reviewId}")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'CUSTOMER')")
     public ResponseEntity<Void> deleteReview(
             @PathVariable UUID reviewId) {
         reviewService.deleteReview(reviewId);
@@ -54,6 +57,7 @@ public class ReviewController {
 
     // 리뷰에 답글 달기
     @PostMapping("/{reviewId}/reply")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public ResponseEntity<ReviewResponseDto> addReplyToReview(
             @PathVariable UUID reviewId,
             @RequestBody ReviewReplyRequestDto replyRequestDto) {
@@ -63,6 +67,7 @@ public class ReviewController {
 
     // 리뷰 답글 수정
     @PutMapping("/{reviewId}/reply")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public ResponseEntity<ReviewResponseDto> updateReply(
             @PathVariable UUID reviewId,
             @RequestBody ReviewReplyRequestDto replyUpdateRequestDto) {
@@ -72,6 +77,7 @@ public class ReviewController {
 
     // 리뷰 답글 삭제
     @DeleteMapping("/{reviewId}/replyDelete")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public ResponseEntity<Void> deleteReply(
             @PathVariable UUID reviewId
     ) {
