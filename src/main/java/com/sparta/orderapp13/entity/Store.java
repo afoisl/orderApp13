@@ -24,7 +24,7 @@ public class Store {
     private UUID storeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(nullable = false)
