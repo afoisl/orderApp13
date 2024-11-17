@@ -71,7 +71,7 @@ public class ReviewController {
     }
 
     // 리뷰 답글 삭제
-    @PutMapping("/{reviewId}/replyDelete")
+    @DeleteMapping("/{reviewId}/replyDelete")
     public ResponseEntity<Void> deleteReply(
             @PathVariable UUID reviewId
     ) {
