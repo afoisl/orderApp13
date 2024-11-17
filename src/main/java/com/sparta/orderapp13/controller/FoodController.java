@@ -56,16 +56,19 @@ public class FoodController {
     @PutMapping("/{foodId}")
     public ResponseEntity<FoodResponseDto> updateFood(
             @PathVariable UUID foodId,
-            @RequestBody FoodRequestDto requestDto) {
-        FoodResponseDto responseDto = foodService.updateFood(foodId, requestDto);
+            @RequestBody FoodRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        FoodResponseDto responseDto = foodService.updateFood(foodId, requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 
     // 음식 소프트 삭제
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
-    @DeleteMapping("/{foodId}")
-    public ResponseEntity<Void> deleteFood(@PathVariable UUID foodId) {
-        foodService.deleteFood(foodId);
+    @DeleteMapping("/stores/{storeId}/foods/{foodId}")
+    public ResponseEntity<Void> deleteFood(@PathVariable UUID foodId,
+                                           @PathVariable UUID storeId,
+                                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        foodService.deleteFood(foodId, storeId, userDetails.getUser());
         return ResponseEntity.noContent().build();
     }
 

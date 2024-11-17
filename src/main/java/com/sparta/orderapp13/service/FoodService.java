@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static com.sparta.orderapp13.entity.QStore.store;
+
 @Service
 @RequiredArgsConstructor
 public class FoodService {
@@ -35,6 +37,11 @@ public class FoodService {
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
         Store store = storeRepository.findByStoreIdAndDeletedAtIsNull(requestDto.getStoreId())
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
+
+        // 가게 소유주 검증
+        if (user.getRole().equals(UserRoleEnum.OWNER) && !store.getUser().getUserId().equals(user.getUserId())) {
+            throw new IllegalStateException("본인 가게의 음식만 생성 할 수 있습니다.");
+        }
 
         Food food = new Food();
         food.setCategory(category); // 카테고리 설정
@@ -115,9 +122,17 @@ public class FoodService {
 
 
     // 음식 수정
-    public FoodResponseDto updateFood(UUID foodId, FoodRequestDto requestDto) {
+    public FoodResponseDto updateFood(UUID foodId, FoodRequestDto requestDto, User user) {
         Food food = foodRepository.findById(foodId)
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
+
+        Store store = storeRepository.findByStoreIdAndDeletedAtIsNull(requestDto.getStoreId())
+                .orElseThrow(() -> new IllegalArgumentException("Food not found"));
+
+        // 가게 소유주 검증
+        if (user.getRole().equals(UserRoleEnum.OWNER) && !store.getUser().getUserId().equals(user.getUserId())) {
+            throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+        }
 
         food.setFoodName(requestDto.getName());
         food.setFoodPrice(requestDto.getPrice());
@@ -133,9 +148,16 @@ public class FoodService {
     }
 
     // 소프트 삭제 (deletedAt에 삭제 시간 기록)
-    public void deleteFood(UUID foodId) {
+    public void deleteFood(UUID foodId, UUID storeId, User user) {
         Food food = foodRepository.findById(foodId)
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
+        Store store = storeRepository.findByStoreIdAndDeletedAtIsNull(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("Food not found"));
+
+        // 가게 소유주 검증
+        if (user.getRole().equals(UserRoleEnum.OWNER) && !store.getUser().getUserId().equals(user.getUserId())) {
+            throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+        }
 
         food.setDeletedAt(LocalDateTime.now()); // 소프트 삭제 시간 기록
         foodRepository.save(food); // 실제 삭제하지 않고, deletedAt만 갱신하여 저장
