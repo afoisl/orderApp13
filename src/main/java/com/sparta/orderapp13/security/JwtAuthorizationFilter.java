@@ -52,13 +52,19 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         // 권한(role)을 GrantedAuthority로 변환
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
 
-        // Authentication 객체 생성
+        // UserDetailsService를 통해 UserDetails 로드
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        // Authentication 객체 생성 (UserDetails 포함)
         Authentication authentication =
-                new UsernamePasswordAuthenticationToken(username, null, List.of(authority));
+                new UsernamePasswordAuthenticationToken(userDetails, null, List.of(authority));
 
         // SecurityContext에 Authentication 설정
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
 
-        log.info("SecurityContext 인증 객체 설정 완료: 사용자={}, 권한={}", username, authority);
+        log.info("SecurityContext 인증 객체 설정 완료: 사용자={}, 권한={}, UserDetails={}",
+                username, authority, userDetails);
     }
 }
