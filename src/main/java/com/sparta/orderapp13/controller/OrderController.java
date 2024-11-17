@@ -7,6 +7,7 @@ import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class OrderController {
 
     // 전체 주문 목록 조회 (관리자용)
     @GetMapping("/orders/admin")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     public Page<OrderResponseDto> getOrdersByAdmin(
             @RequestParam("page") int page,
             @RequestParam("size") int size,
@@ -51,24 +53,28 @@ public class OrderController {
 
     // 주문 확인 (상태 변경)
     @PatchMapping("/order/confirm")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public OrderUpdateDto confirmOrder(@RequestBody OrderUpdateDto requestDto) {
         return orderService.confirmOrder(requestDto);
     }
 
     // 주문중 (상태 변경)
     @PatchMapping("/order/delivering")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public OrderUpdateDto deliveringOrder(@RequestBody OrderUpdateDto requestDto) {
         return orderService.deliveringOrder(requestDto);
     }
 
     // 주문 완료 (상태 변경)
     @PatchMapping("/order/complete")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public OrderUpdateDto completeOrder(@RequestBody OrderUpdateDto requestDto) {
         return orderService.completeOrder(requestDto);
     }
 
     // 주문 취소 (상태 변경)
     @PatchMapping("/order/cancel/{orderId}")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     public void cancelOrder(@PathVariable UUID orderId) {
         orderService.cancelOrder(orderId);
     }
