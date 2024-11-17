@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static org.springframework.http.ResponseEntity.noContent;
+
 @RestController
 @RequestMapping("/api/review")
 @RequiredArgsConstructor
@@ -24,7 +26,6 @@ public class ReviewController {
         ReviewResponseDto responseDto = reviewService.createReview(requestDto);
         return ResponseEntity.ok(responseDto);
     }
-
 
 
     // 특정 가게의 모든 리뷰 조회
@@ -48,7 +49,7 @@ public class ReviewController {
     public ResponseEntity<Void> deleteReview(
             @PathVariable UUID reviewId) {
         reviewService.deleteReview(reviewId);
-        return ResponseEntity.noContent().build();
+        return noContent().build();
     }
 
     // 리뷰에 답글 달기
@@ -71,10 +72,10 @@ public class ReviewController {
 
     // 리뷰 답글 삭제
     @PutMapping("/{reviewId}/replyDelete")
-    public ResponseEntity<ReviewResponseDto> deleteReply(
-            @PathVariable UUID reviewId,
-            @RequestBody ReviewReplyRequestDto replyUpdateRequestDto) {
-        ReviewResponseDto responseDto = reviewService.updateReply(reviewId, replyUpdateRequestDto);
-        return ResponseEntity.ok(responseDto);
+    public ResponseEntity<Void> deleteReply(
+            @PathVariable UUID reviewId
+    ) {
+        reviewService.deleteReply(reviewId);
+        return ResponseEntity.noContent().build();
     }
 }
