@@ -29,6 +29,7 @@ public class StoreController {
         System.out.println(requestDto.getCity());
         System.out.println(requestDto.getStoreName());
         System.out.println(requestDto.getCategoryId());
+        System.out.println("user: "+userDetails.getUser());
         return storeService.enroll(requestDto, userDetails.getUser());
     }
 

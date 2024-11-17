@@ -23,7 +23,7 @@ public class Store {
     @Column(name = "storeId", nullable = false, updatable = false, unique = true)
     private UUID storeId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

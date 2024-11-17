@@ -67,4 +67,5 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         log.info("SecurityContext 인증 객체 설정 완료: 사용자={}, 권한={}, UserDetails={}",
                 username, authority, userDetails);
     }
+
 }
