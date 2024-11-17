@@ -25,23 +25,7 @@ public class ReviewController {
         return ResponseEntity.ok(responseDto);
     }
 
-    // 리뷰에 답글 달기
-    @PostMapping("/{reviewId}/reply")
-    public ResponseEntity<ReviewResponseDto> addReplyToReview(
-            @PathVariable UUID reviewId,
-            @RequestBody ReviewReplyRequestDto replyRequestDto) {
-        ReviewResponseDto responseDto = reviewService.addReplyToReview(reviewId, replyRequestDto);
-        return ResponseEntity.ok(responseDto);
-    }
 
-    // 리뷰 답글 수정
-    @PutMapping("/{reviewId}/reply")
-    public ResponseEntity<ReviewResponseDto> updateReply(
-            @PathVariable UUID reviewId,
-            @RequestBody ReviewReplyRequestDto replyUpdateRequestDto) {
-        ReviewResponseDto responseDto = reviewService.updateReply(reviewId, replyUpdateRequestDto);
-        return ResponseEntity.ok(responseDto);
-    }
 
     // 특정 가게의 모든 리뷰 조회
     @GetMapping("/{storeId}/reviewInfo")
@@ -65,5 +49,32 @@ public class ReviewController {
             @PathVariable UUID reviewId) {
         reviewService.deleteReview(reviewId);
         return ResponseEntity.noContent().build();
+    }
+
+    // 리뷰에 답글 달기
+    @PostMapping("/{reviewId}/reply")
+    public ResponseEntity<ReviewResponseDto> addReplyToReview(
+            @PathVariable UUID reviewId,
+            @RequestBody ReviewReplyRequestDto replyRequestDto) {
+        ReviewResponseDto responseDto = reviewService.addReplyToReview(reviewId, replyRequestDto);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    // 리뷰 답글 수정
+    @PutMapping("/{reviewId}/reply")
+    public ResponseEntity<ReviewResponseDto> updateReply(
+            @PathVariable UUID reviewId,
+            @RequestBody ReviewReplyRequestDto replyUpdateRequestDto) {
+        ReviewResponseDto responseDto = reviewService.updateReply(reviewId, replyUpdateRequestDto);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    // 리뷰 답글 삭제
+    @PutMapping("/{reviewId}/replyDelete")
+    public ResponseEntity<ReviewResponseDto> deleteReply(
+            @PathVariable UUID reviewId,
+            @RequestBody ReviewReplyRequestDto replyUpdateRequestDto) {
+        ReviewResponseDto responseDto = reviewService.updateReply(reviewId, replyUpdateRequestDto);
+        return ResponseEntity.ok(responseDto);
     }
 }

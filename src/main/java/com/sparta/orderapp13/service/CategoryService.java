@@ -5,6 +5,7 @@ import com.sparta.orderapp13.dto.CategoryResponseDto;
 import com.sparta.orderapp13.entity.Category;
 import com.sparta.orderapp13.entity.Food;
 import com.sparta.orderapp13.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,7 @@ public class CategoryService {
     }
 
     // ID로 삭제되지 않은 카테고리를 조회
+    @Transactional
     public CategoryResponseDto getCategoryById(UUID categoryId) {
         Category category = categoryRepository.findByIdAndNotDeleted(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
