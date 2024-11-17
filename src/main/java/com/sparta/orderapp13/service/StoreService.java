@@ -11,6 +11,9 @@ import com.sparta.orderapp13.repository.StoreRepository;
 import com.sparta.orderapp13.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +50,13 @@ public class StoreService {
         return new StoreResponseDto(store);
     }
 
+    public Page<StoreResponseDto> search(int page, int size, String keyword) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Store> stores = storeRepository.findByStoreName(keyword, pageable);
+
+        return stores.map(StoreResponseDto::new);
+    }
+
     public List<StoreResponseDto> getAll(String categoryName) {
         return storeRepository.findAllByCategoryName(queryFactory, categoryName)
                 .stream()
@@ -54,7 +64,7 @@ public class StoreService {
                 .toList();
     }
 
-    public StoreResponseDto getStore(UUID storeId) {
+    public StoreResponseDto get(UUID storeId) {
         // 가게 조회
         Store store = storeRepository.findById(storeId)
                 .orElseThrow((EntityNotFoundException::new));
@@ -89,4 +99,5 @@ public class StoreService {
         store.delete();
         return storeId;
     }
+
 }

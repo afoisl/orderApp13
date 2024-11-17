@@ -93,6 +93,7 @@ public class Order {
 
     public void cancel() {
         this.orderStatus = OrderStatus.ORDER_CANCEL;
+        this.deletedAt = LocalDateTime.now();
     }
 
     public void complete() {

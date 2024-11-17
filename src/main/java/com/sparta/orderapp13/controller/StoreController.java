@@ -5,6 +5,8 @@ import com.sparta.orderapp13.dto.StoreResponseDto;
 import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.StoreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +39,18 @@ public class StoreController {
         return storeService.getAll(category);
     }
 
+    // 키워드로 가게 검색
+    @GetMapping("/stores/search")
+    public ResponseEntity<Page<StoreResponseDto>> search(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                        @RequestParam(value = "size", defaultValue = "10") int size,
+                                                        @RequestParam(value = "keyword") String keyword) {
+        return ResponseEntity.ok(storeService.search(page - 1, size, keyword));
+    }
+
     // 가게 상세 조회
     @GetMapping("/store/{storeId}")
-    public StoreResponseDto getStore(@PathVariable UUID storeId) {
-        return storeService.getStore(storeId);
+    public StoreResponseDto get(@PathVariable UUID storeId) {
+        return storeService.get(storeId);
     }
 
     // 가게 정보 수정
