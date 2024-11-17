@@ -34,7 +34,7 @@ public class OrderService {
     private final UserRepository userRepository;
 
     @Transactional
-    public OrderResponseDto createOrder(OrderRequestDto requestDto) {
+    public OrderResponseDto create(OrderRequestDto requestDto) {
 
         System.out.println(requestDto.getUserId());
         User user = userRepository.findById(requestDto.getUserId())
@@ -76,7 +76,7 @@ public class OrderService {
 
     // CUSTOMER 별 주문 전체 조회
     @Transactional(readOnly = true)
-    public Page<OrderResponseDto> getOrders(User user, int page, int size, String sortBy, boolean isAsc) {
+    public Page<OrderResponseDto> getAll(User user, int page, int size, String sortBy, boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -89,7 +89,7 @@ public class OrderService {
 
     // MASTER와 MANAGER 전체 주문 조회
     @Transactional(readOnly = true)
-    public Page<OrderResponseDto> getOrdersByAdmin(User user, int page, int size, String sortBy, boolean isAsc) {
+    public Page<OrderResponseDto> getAllByAdmin(User user, int page, int size, String sortBy, boolean isAsc) {
 
         UserRoleEnum role = user.getRole();
 
@@ -106,7 +106,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderUpdateDto confirmOrder(OrderUpdateDto requestDto) {
+    public OrderUpdateDto confirm(OrderUpdateDto requestDto) {
         Order order = orderRepository.findById(requestDto.getOrderId())
                 .orElseThrow(EntityNotFoundException::new);
 
@@ -133,7 +133,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderUpdateDto deliveringOrder(OrderUpdateDto requestDto) {
+    public OrderUpdateDto delivering(OrderUpdateDto requestDto) {
         Order order = orderRepository.findById(requestDto.getOrderId())
                 .orElseThrow(EntityNotFoundException::new);
 
@@ -160,7 +160,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderUpdateDto completeOrder(OrderUpdateDto requestDto) {
+    public OrderUpdateDto complete(OrderUpdateDto requestDto) {
         Order order = orderRepository.findById(requestDto.getOrderId())
                 .orElseThrow(EntityNotFoundException::new);
 
@@ -187,7 +187,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void cancelOrder(UUID orderId) {
+    public void cancel(UUID orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
 
