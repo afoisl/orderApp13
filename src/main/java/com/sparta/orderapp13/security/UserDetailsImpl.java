@@ -21,6 +21,10 @@ public class UserDetailsImpl implements UserDetails {
         return user;
     }
 
+    public Long getUserId() {
+        return user.getUserId(); // userId 필드 접근 메서드 추가
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -28,7 +32,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getUserEmail(); // userEmail을 username으로 사용
     }
 
     @Override

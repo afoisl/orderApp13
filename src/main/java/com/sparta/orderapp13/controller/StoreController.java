@@ -16,6 +16,7 @@ public class StoreController {
 
     private final StoreService storeService;
 
+    // 가게 등록
     @PostMapping("/stores")
     public StoreResponseDto enroll(@RequestBody StoreRequestDto requestDto) {
         System.out.println(requestDto.getCity());
@@ -24,21 +25,25 @@ public class StoreController {
         return storeService.enroll(requestDto);
     }
 
+    // 카테고리별 가게 조회
     @GetMapping("/stores")
     public List<StoreResponseDto> getAll(@RequestParam String category) {
         return storeService.getAll(category);
     }
 
+    // 가게 상세 조회
     @GetMapping("/store/{storeId}")
     public StoreResponseDto getStore(@PathVariable UUID storeId) {
         return storeService.getStore(storeId);
     }
 
+    // 가게 정보 수정
     @PutMapping("/stores/{storeId}")
     public UUID update(@PathVariable UUID storeId, @RequestBody StoreRequestDto requestDto) {
         return storeService.update(storeId, requestDto);
     }
 
+    // 가게 폐업 (상태 변경)
     @PatchMapping("/store/{storeId}")
     public UUID delete(@PathVariable UUID storeId) {
         return storeService.delete(storeId);
