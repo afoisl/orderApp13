@@ -5,6 +5,7 @@ import com.sparta.orderapp13.dto.FoodResponseDto;
 import com.sparta.orderapp13.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class FoodController {
     private final FoodService foodService;
 
     // 음식 등록
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     @PostMapping
     public ResponseEntity<FoodResponseDto> createFood(@RequestBody FoodRequestDto requestDto) {
         FoodResponseDto responseDto = foodService.createFood(requestDto);
@@ -46,6 +48,7 @@ public class FoodController {
     }
 
     // 음식 수정
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     @PutMapping("/{foodId}")
     public ResponseEntity<FoodResponseDto> updateFood(
             @PathVariable UUID foodId,
@@ -55,6 +58,7 @@ public class FoodController {
     }
 
     // 음식 소프트 삭제
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     @DeleteMapping("/{foodId}")
     public ResponseEntity<Void> deleteFood(@PathVariable UUID foodId) {
         foodService.deleteFood(foodId);
