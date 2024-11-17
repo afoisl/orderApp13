@@ -2,10 +2,12 @@ package com.sparta.orderapp13.controller;
 
 import com.sparta.orderapp13.dto.FoodRequestDto;
 import com.sparta.orderapp13.dto.FoodResponseDto;
+import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +20,13 @@ public class FoodController {
 
     private final FoodService foodService;
 
+
     // 음식 등록
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     @PostMapping
-    public ResponseEntity<FoodResponseDto> createFood(@RequestBody FoodRequestDto requestDto) {
-        FoodResponseDto responseDto = foodService.createFood(requestDto);
+    public ResponseEntity<FoodResponseDto> createFood(@RequestBody FoodRequestDto requestDto,
+                                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        FoodResponseDto responseDto = foodService.createFood(requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 

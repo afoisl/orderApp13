@@ -2,10 +2,7 @@ package com.sparta.orderapp13.service;
 
 import com.sparta.orderapp13.dto.FoodRequestDto;
 import com.sparta.orderapp13.dto.FoodResponseDto;
-import com.sparta.orderapp13.entity.Ai;
-import com.sparta.orderapp13.entity.Category;
-import com.sparta.orderapp13.entity.Food;
-import com.sparta.orderapp13.entity.Store;
+import com.sparta.orderapp13.entity.*;
 import com.sparta.orderapp13.repository.AiRepository;
 import com.sparta.orderapp13.repository.CategoryRepository;
 import com.sparta.orderapp13.repository.FoodRepository;
@@ -33,7 +30,7 @@ public class FoodService {
     // 음식 등록 새로운 음식을 등록하고, 필요시 AI를 통해 설명을 생성
 
     @Transactional
-    public FoodResponseDto createFood(FoodRequestDto requestDto) {
+    public FoodResponseDto createFood(FoodRequestDto requestDto, User user) {
         Category category = categoryRepository.findByIdAndNotDeleted(requestDto.getCategoryId())
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
         Store store = storeRepository.findByStoreIdAndDeletedAtIsNull(requestDto.getStoreId())
