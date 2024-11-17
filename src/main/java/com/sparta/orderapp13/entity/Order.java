@@ -2,16 +2,11 @@ package com.sparta.orderapp13.entity;
 
 import com.sparta.orderapp13.dto.OrderRequestDto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
-import javax.crypto.Mac;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
