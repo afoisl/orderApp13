@@ -38,7 +38,7 @@ public class OrderService {
 
         System.out.println(requestDto.getUserId());
         User user = userRepository.findById(requestDto.getUserId()).orElseThrow(()->
-                new NullPointerException("해당 하는 유저는 존재하지 않습니다."));
+                new IllegalArgumentException("해당 하는 유저는 존재하지 않습니다."));
 
         // 음식 총 가격
         int totalPrice = calculateTotalPrice(requestDto.getFoodList());
@@ -52,7 +52,7 @@ public class OrderService {
 
             int quantity = orderFoodRequest.getQuantity();
             Food food = foodRepository.findById(orderFoodRequest.getFoodId()).orElseThrow(()->
-                    new NullPointerException("해당하는 음식이 존재하지 않습니다."));
+                    new IllegalArgumentException("해당하는 음식이 존재하지 않습니다."));
 
             OrderFood orderFood = new OrderFood(order, food, quantity);
             orderFoods.add(orderFood);
@@ -68,7 +68,7 @@ public class OrderService {
         int totalPrice = 0;
         for (OrderFoodDto orderFoodDto : foodList) {
             Food food = foodRepository.findById(orderFoodDto.getFoodId()).orElseThrow(()->
-                    new NullPointerException("해당하는 음식이 존재하지 않습니다."));
+                    new IllegalArgumentException("해당하는 음식이 존재하지 않습니다."));
             totalPrice =  food.getFoodPrice() * orderFoodDto.getQuantity();
         }
         return totalPrice;
