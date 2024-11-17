@@ -6,6 +6,7 @@ import com.sparta.orderapp13.entity.Category;
 import com.sparta.orderapp13.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     // 카테고리 생성
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     @PostMapping
     public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto requestDto) {
         CategoryResponseDto responseDto = categoryService.createCategory(requestDto);
@@ -42,6 +44,7 @@ public class CategoryController {
 
     // 특정 ID 카테고리 정보 수정
     @PutMapping("/{categoryId}")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable UUID categoryId, @RequestBody CategoryRequestDto requestDto) {
         CategoryResponseDto responseDto = categoryService.updateCategory(categoryId, requestDto);
         return ResponseEntity.ok(responseDto);
@@ -50,6 +53,7 @@ public class CategoryController {
     // 특정 ID에 해당하는 카테고리를 소프트 삭제
     // deleted_by에 삭제한 사람 들어가게 해야 함
     @DeleteMapping("/{categoryId}")
+    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     public ResponseEntity<Void> deleteCategory(@PathVariable UUID categoryId) {
         categoryService.deleteCategory(categoryId);
         return ResponseEntity.noContent().build(); // 성공적으로 삭제 시 빈 응답 반환

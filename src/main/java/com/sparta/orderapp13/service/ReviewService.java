@@ -66,31 +66,6 @@ public class ReviewService {
         return convertToResponseDto(review);
     }
 
-    // 리뷰에 답글 추가
-    @Transactional
-    public ReviewResponseDto addReplyToReview(UUID reviewId, ReviewReplyRequestDto replyRequestDto) {
-        Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
-
-        review.setReplyText(replyRequestDto.getReplyText()); // 답글 설정
-        reviewRepository.save(review);
-
-        return convertToResponseDto(review);
-    }
-
-    // 답글 수정
-    @Transactional
-    public ReviewResponseDto updateReply(UUID reviewId, ReviewReplyRequestDto replyUpdateRequestDto) {
-        Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
-
-        review.setReplyText(replyUpdateRequestDto.getReplyText()); // 답글 수정
-        reviewRepository.save(review);
-
-        return convertToResponseDto(review);
-    }
-
-
     // 특정 가게의 모든 리뷰 조회
     @Transactional
     public List<ReviewResponseDto> getReviewsByStoreId(UUID storeId) {
@@ -152,5 +127,37 @@ public class ReviewService {
         responseDto.setUpdatedAt(review.getUpdatedAt());
         responseDto.setUpdatedBy(review.getUpdatedBy());
         return responseDto;
+    }
+
+    // 리뷰에 답글 추가
+    @Transactional
+    public ReviewResponseDto addReplyToReview(UUID reviewId, ReviewReplyRequestDto replyRequestDto) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+
+        review.setReplyText(replyRequestDto.getReplyText()); // 답글 설정
+        reviewRepository.save(review);
+
+        return convertToResponseDto(review);
+    }
+
+    // 답글 수정
+    @Transactional
+    public ReviewResponseDto updateReply(UUID reviewId, ReviewReplyRequestDto replyUpdateRequestDto) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+
+        review.setReplyText(replyUpdateRequestDto.getReplyText()); // 답글 수정
+        reviewRepository.save(review);
+
+        return convertToResponseDto(review);
+    }
+    
+    public void deleteReply(UUID reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+        
+        review.setReplyText(null); // 실제 삭제는 아니고 null로 변경
+        reviewRepository.save(review); 
     }
 }
