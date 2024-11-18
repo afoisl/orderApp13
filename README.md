@@ -134,7 +134,8 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 ## - 시스템 아키텍처 설계서
 
 <div markdown="1">
-  ![인프라설계도](https://github.com/user-attachments/assets/a6fec858-9887-4eff-aeae-39e36dbe095c)
+ ![인프라설계도](https://github.com/user-attachments/assets/99ec8dd1-5cb3-4c62-87df-685f7e5a6b35)
+
 
 <p align="center">
 
