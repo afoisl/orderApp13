@@ -3,7 +3,7 @@
 ## <div align="center">주문배달 프로젝트</div>
 
 ### <div align="center">8조 준비용</div>
-<br/><div align="center"> 팀장 <br/><br/>최영준 🐲 <br/><br/><br/>팀원 <br/><br/>윤지용 🐂 <br/><br/>오겸비 🐰</div>
+<br/><div markdown="1"> 팀장 <br/><br/>최영준 🐲 <br/><br/><br/>팀원 <br/><br/>윤지용 🐂 <br/><br/>오겸비 🐰</div>
 <br/>
 
 ---
