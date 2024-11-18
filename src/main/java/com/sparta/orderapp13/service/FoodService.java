@@ -51,8 +51,8 @@ public class FoodService {
         food.setFoodImg(requestDto.getFoodImg());
 
         // 생성자, 수정자 정보 설정. null일 경우 기본값 설정
-        food.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
-        food.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
+        food.setCreatedBy(user.getUserEmail());
+        food.setUpdatedBy(user.getUserEmail());
 
         // Food 객체를 저장하여 기본 키 ID를 할당
         foodRepository.save(food);
