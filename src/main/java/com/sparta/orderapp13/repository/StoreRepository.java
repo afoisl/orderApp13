@@ -22,7 +22,8 @@ public interface StoreRepository extends JpaRepository<Store, UUID> {
         return queryFactory
                 .selectFrom(store)
                 .join(store.category, category)
-                .where(category.categoryName.eq(categoryName))
+                .where(category.categoryName.eq(categoryName),
+                        store.isDeleted.isNull()) // DeletedAt 이 Null 인 가게만 조회
                 .fetch();
     }
 

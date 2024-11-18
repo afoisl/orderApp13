@@ -17,7 +17,8 @@ public interface PaymentRepository extends JpaRepository<Payment, UUID> {
         return queryFactory
                 .selectFrom(payment)
                 .join(payment.order, order)
-                .where(order.user.eq(user))
+                .where(order.user.eq(user),
+                        payment.deletedAt.isNull())
                 .fetch();
     }
 }
