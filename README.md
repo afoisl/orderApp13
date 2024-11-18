@@ -127,11 +127,11 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 ![sparta13 (1)](https://github.com/user-attachments/assets/396d1681-4b3c-4210-85cb-efa30389af3e)
 
 </div>
-</details>
+
 
 ---
 
-<details>
+
 <summary>
   <b>⭐ 화면설계서</b>
 </summary>
