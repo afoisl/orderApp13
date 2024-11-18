@@ -66,5 +66,4 @@ public class StoreController {
     public UUID delete(@PathVariable UUID storeId) {
         return storeService.delete(storeId);
     }
-    // ..
 }
