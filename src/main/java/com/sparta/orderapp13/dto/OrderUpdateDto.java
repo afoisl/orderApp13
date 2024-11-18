@@ -15,7 +15,7 @@ import java.util.UUID;
 public class OrderUpdateDto {
 
     private UUID orderId;
-    private String userId;
+    private long userId;
     private String orderStatus;
 
     public OrderUpdateDto(Order order) {
