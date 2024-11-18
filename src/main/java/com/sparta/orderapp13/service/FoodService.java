@@ -141,9 +141,8 @@ public class FoodService {
         food.setFoodPrice(requestDto.getPrice());
         food.setDescription(requestDto.getDescription());
         food.setFoodImg(requestDto.getFoodImg());
-        food.setUpdatedAt(LocalDateTime.now());
 
-        food.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
+        food.setUpdatedBy(user.getUserEmail());
         food.setUpdatedAt(LocalDateTime.now());
 
         foodRepository.save(food);
@@ -163,7 +162,7 @@ public class FoodService {
                 throw new IllegalStateException("본인 가게의 음식만 삭제 할 수 있습니다.");
             }
         }
-
+        food.setDeletedBy(user.getUserEmail());
         food.setDeletedAt(LocalDateTime.now()); // 소프트 삭제 시간 기록
         foodRepository.save(food); // 실제 삭제하지 않고, deletedAt만 갱신하여 저장
     }
