@@ -47,8 +47,7 @@
 Spring Security와 JWT 기반의 인증/인가 체계 구축.
 사용자 역할(CUSTOMER, OWNER, MANAGER, MASTER)에 따른 접근 권한 관리.
 
-4.확장성과 성능 최적화
-docker 사용 과
+
 
 <br/>
 
