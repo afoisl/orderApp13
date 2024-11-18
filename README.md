@@ -115,7 +115,7 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
   <b>⭐ ERD</b>
 </summary>
 <div markdown="1">
-  
+  <br/>
 ![sparta13 (1)](https://github.com/user-attachments/assets/396d1681-4b3c-4210-85cb-efa30389af3e)
 
 </div>
