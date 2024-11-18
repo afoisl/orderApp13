@@ -58,11 +58,11 @@ docker 사용 과
 - 개발 환경: 
 - 프로그래밍 언어: 
 #### 📌백엔드
-- 개발 환경: 
-- 프로그래밍 언어: 
-- 빌드 도구: 
-- 프레임워크:
-- 보안: 
+- 개발 환경: <img src="https://img.shields.io/badge/window-80B3FF?style=flat-square&logo=window&logoColor=white"/> <img src="https://img.shields.io/badge/macOS-000000?style=flat-square&logo=macos&logoColor=white"/>
+- 프로그래밍 언어: <img src="https://img.shields.io/badge/java-00465B?style=flat-square&logo=java&logoColor=white"/>
+- 빌드 도구: <img src="https://img.shields.io/badge/gradle-02303A?style=flat-square&logo=gradle&logoColor=white"/>
+- 프레임워크: <img src="https://img.shields.io/badge/spring-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/springboot-6DB33F?style=flat-square&logo=springboot&logoColor=white"/>
+- 보안: <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=flat-square&logo=springsecurity&logoColor=white"/>
 
 #### 📌배포
 
