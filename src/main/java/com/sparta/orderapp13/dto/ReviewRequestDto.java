@@ -15,6 +15,4 @@ public class ReviewRequestDto {
     private List<UUID> foodIds;
     private int rating; // 평점
     private String reviewText; // 리뷰 내용
-    private String createdBy;
-    private String updatedBy;
 }
