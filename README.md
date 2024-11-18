@@ -24,11 +24,10 @@
   </tbody>
 </table>
 
-|:------:|:------:|:------:|:------:|
+
 | <img src="https://github.com/choiy6" alt="최용준" width="150"> | <img src="https://github.com/jeffyun3061" alt="윤지용" width="150"> | <img src="https://github.com/afoisl" alt="오겸비" width="150"> |
 |:------:|:------:|:------:|:------:|
-| PL | FE | FE |
-| [GitHub](https://github.com/LDK1009) | [GitHub](https://github.com/SinYusi) | [GitHub](https://github.com/nay3on) | [GitHub](https://github.com/conconcc) |
+| [최용준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [GitHub](https://github.com/nay3on) | [오겸비](https://github.com/afoisl) |
 
 <details>
 <summary>
