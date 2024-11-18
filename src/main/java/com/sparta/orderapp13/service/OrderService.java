@@ -82,7 +82,7 @@ public class OrderService {
         Pageable pageable = PageRequest.of(page, size, sort);
 
         // 사용자 주문 조회
-        Page<Order> orderList = orderRepository.findAllByUser_UserId(user.getUserId(), pageable);
+        Page<Order> orderList = orderRepository.findAllByUser_UserIdAndDeletedAtIsNull(user.getUserId(), pageable);
         System.out.println(user.getUserId());
         return orderList.map(order -> new OrderResponseDto(order, order.getOrderFoodList()));
     }
