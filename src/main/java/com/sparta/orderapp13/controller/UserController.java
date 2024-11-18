@@ -40,8 +40,15 @@ public class UserController {
     }
 
 
-    // CUSTOMER 사용자에게 MANAGER 역할 할당
+    // MANAGER 역할 할당
+    @PreAuthorize("hasRole('MASTER')")
+    @PatchMapping("/assign-manager")
+    public ResponseEntity<String> assignManager(@RequestParam String userEmail) {
+        userService.assignManager(userEmail);
+        return ResponseEntity.ok("사용자 " + userEmail + "이(가) MANAGER로 임명되었습니다.");
+    }
 
+    // OWNER 역할 할당
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     @PatchMapping("/assign-owner")
     public ResponseEntity<String> assignOwner(@RequestParam String userEmail) {
@@ -60,6 +67,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     @PatchMapping("/update/{userId}")
     public ResponseEntity<String> updateUserByAdmin(@PathVariable Long userId, @Valid @RequestBody UpdateUserRequestDto requestDto) {
+        System.out.println("컨트롤러 userId: " + userId);
         userService.updateUserByAdmin(userId, requestDto);
         return ResponseEntity.ok("사용자 정보 수정 완료");
     }

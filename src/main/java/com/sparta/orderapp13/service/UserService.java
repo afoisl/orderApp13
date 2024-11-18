@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -154,7 +155,8 @@ public class UserService {
             throw new IllegalStateException("삭제 권한이 없습니다.");
         }
 
-        userRepository.delete(user);
+        user.setDeletedAt(LocalDateTime.now());
+        userRepository.save(user);
     }
 
     // MASTER 또는 MANAGER가 다른 사용자의 개인정보 수정
@@ -180,8 +182,8 @@ public class UserService {
     public void deleteUserByAdmin(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-
-        userRepository.delete(user);
+        user.setDeletedAt(LocalDateTime.now());
+        userRepository.save(user);
     }
 
 }
