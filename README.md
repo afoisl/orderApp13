@@ -21,7 +21,7 @@
 |:------:|:------:|:------:|
 | [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 <br/>
----
+
 
 ## - 프로젝트 개요
 
