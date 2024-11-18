@@ -50,7 +50,7 @@ docker 사용 과
 
 #### 📌공통
 - 버전 관리 및 협업: 
-- 데이터베이스:[![My Skills](https://skillicons.dev/icons?i=postgres)](https://skillicons.dev)
+- 데이터베이스: <img src="https://img.shields.io/badge/postgresql-#4169E1?style=flat-square&logo=postgresql&logoColor=white"/>
 - 운영 체제: 
 - 커뮤니케이션: <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
 
