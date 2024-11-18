@@ -119,8 +119,8 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 </summary>
 <div markdown="1">
   
+  ![Uploading sparta13 (1).png…]()
 
-  
 </div>
 </details>
 
