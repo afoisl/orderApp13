@@ -49,7 +49,7 @@ docker 사용 과
 <div markdown="1">
 
 #### 📌공통
-- 버전 관리 및 협업: 
+- 버전 관리 및 협업: <img src="https://img.shields.io/badge/git-F05032?style=flat-square&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/git-181717?style=flat-square&logo=github&logoColor=white"/>
 - 데이터베이스: <img src="https://img.shields.io/badge/postgresql-4169E1?style=flat-square&logo=postgresql&logoColor=white"/>
 - 운영 체제: 
 - 커뮤니케이션: <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
