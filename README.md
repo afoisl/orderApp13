@@ -136,7 +136,7 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 <div markdown="1">
   
 <p align="center">
- ![인프라설계도](https://github.com/user-attachments/assets/a6fec858-9887-4eff-aeae-39e36dbe095c)
+ !(https://github.com/user-attachments/assets/a6fec858-9887-4eff-aeae-39e36dbe095c)
 
 </p>
 
