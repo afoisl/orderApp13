@@ -50,8 +50,8 @@ docker 사용 과
 
 #### 📌공통
 - 버전 관리 및 협업: 
-- 데이터베이스:[![My Skills](https://skillicons.dev/icons?i=postgreSQL)](https://skillicons.dev)
-- 운영 체제:
+- 데이터베이스:[![My Skills](https://skillicons.dev/icons?i=postgres)](https://skillicons.dev)
+- 운영 체제: 
 - 커뮤니케이션: <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
 
 #### 📌프론트엔드
@@ -59,9 +59,9 @@ docker 사용 과
 - 프로그래밍 언어: 
 #### 📌백엔드
 - 개발 환경: 
-- 프로그래밍 언어:
-- 빌드 도구: 
-- 프레임워크: 
+- 프로그래밍 언어: [![My Skills](https://skillicons.dev/icons?i=java)](https://skillicons.dev)
+- 빌드 도구: [![My Skills](https://skillicons.dev/icons?i=gradle)](https://skillicons.dev)
+- 프레임워크:
 - 보안: 
 
 #### 📌배포
