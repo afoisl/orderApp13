@@ -20,7 +20,6 @@
 | <img src="https://avatars.githubusercontent.com/u/82498610?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/150976474?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/160198328?v=4" alt="" width="150"> |
 |:------:|:------:|:------:|
 | [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
-
 <br/>
 ---
 
