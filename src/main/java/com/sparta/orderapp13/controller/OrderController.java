@@ -44,10 +44,10 @@ public class OrderController {
     @GetMapping("/orders/admin")
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     public Page<OrderResponseDto> getAllByAdmin(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("isAsc") boolean isAsc,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "sortBy", defaultValue = "createdAt") String sortBy,
+            @RequestParam(value = "isAse", defaultValue = "true") boolean isAsc,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         return orderService.getAllByAdmin(userDetails.getUser(),page - 1, size, sortBy, isAsc);
