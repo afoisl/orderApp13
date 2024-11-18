@@ -3,10 +3,12 @@ package com.sparta.orderapp13.controller;
 import com.sparta.orderapp13.dto.CategoryRequestDto;
 import com.sparta.orderapp13.dto.CategoryResponseDto;
 import com.sparta.orderapp13.entity.Category;
+import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +24,9 @@ public class CategoryController {
     // 카테고리 생성
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     @PostMapping
-    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto requestDto) {
-        CategoryResponseDto responseDto = categoryService.createCategory(requestDto);
+    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto requestDto,
+                                                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        CategoryResponseDto responseDto = categoryService.createCategory(requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto); // 생성된 카테고리 정보를 응답으로 반환
     }
 
@@ -45,8 +48,10 @@ public class CategoryController {
     // 특정 ID 카테고리 정보 수정
     @PutMapping("/{categoryId}")
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
-    public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable UUID categoryId, @RequestBody CategoryRequestDto requestDto) {
-        CategoryResponseDto responseDto = categoryService.updateCategory(categoryId, requestDto);
+    public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable UUID categoryId,
+                                                              @RequestBody CategoryRequestDto requestDto,
+                                                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        CategoryResponseDto responseDto = categoryService.updateCategory(categoryId, requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 
@@ -54,8 +59,9 @@ public class CategoryController {
     // deleted_by에 삭제한 사람 들어가게 해야 함
     @DeleteMapping("/{categoryId}")
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
-    public ResponseEntity<Void> deleteCategory(@PathVariable UUID categoryId) {
-        categoryService.deleteCategory(categoryId);
+    public ResponseEntity<Void> deleteCategory(@PathVariable UUID categoryId,
+                                               @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        categoryService.deleteCategory(categoryId, userDetails.getUser());
         return ResponseEntity.noContent().build(); // 성공적으로 삭제 시 빈 응답 반환
     }
 

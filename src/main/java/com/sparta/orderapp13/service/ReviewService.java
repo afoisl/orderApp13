@@ -3,10 +3,7 @@ package com.sparta.orderapp13.service;
 import com.sparta.orderapp13.dto.ReviewReplyRequestDto;
 import com.sparta.orderapp13.dto.ReviewRequestDto;
 import com.sparta.orderapp13.dto.ReviewResponseDto;
-import com.sparta.orderapp13.entity.Food;
-import com.sparta.orderapp13.entity.Review;
-import com.sparta.orderapp13.entity.ReviewFood;
-import com.sparta.orderapp13.entity.Store;
+import com.sparta.orderapp13.entity.*;
 import com.sparta.orderapp13.repository.FoodRepository;
 import com.sparta.orderapp13.repository.ReviewFoodRepository;
 import com.sparta.orderapp13.repository.ReviewRepository;
@@ -33,7 +30,7 @@ public class ReviewService {
 
     // 리뷰 생성
     @Transactional
-    public ReviewResponseDto createReview(ReviewRequestDto requestDto) {
+    public ReviewResponseDto createReview(ReviewRequestDto requestDto, User user) {
         Store store = storeRepository.findByStoreIdAndDeletedAtIsNull(requestDto.getStoreId())
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
 
@@ -42,8 +39,8 @@ public class ReviewService {
         review.setRating(requestDto.getRating());
         review.setReviewText(requestDto.getReviewText());
         // 생성자, 수정자 정보 설정. null일 경우 기본값 설정
-        review.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
-        review.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
+        review.setCreatedBy(user.getUserEmail());
+        review.setUpdatedBy(user.getUserEmail());
 
         reviewRepository.save(review);
 
@@ -55,8 +52,8 @@ public class ReviewService {
             ReviewFood reviewFood = new ReviewFood();
             reviewFood.setReview(review);
             reviewFood.setFood(food);
-            reviewFood.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
-            reviewFood.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
+            reviewFood.setCreatedBy(user.getUserEmail());
+            reviewFood.setUpdatedBy(user.getUserEmail());
             reviewFoods.add(reviewFood);
         }
 
@@ -82,13 +79,13 @@ public class ReviewService {
 
     // 리뷰 수정
     @Transactional
-    public ReviewResponseDto updateReview(UUID reviewId, ReviewRequestDto requestDto) {
+    public ReviewResponseDto updateReview(UUID reviewId, ReviewRequestDto requestDto, User user) {
         Review review = reviewRepository.findByReviewIdAndDeletedAtIsNull(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found"));
 
         review.setRating(requestDto.getRating());
         review.setReviewText(requestDto.getReviewText());
-        review.setUpdatedBy(requestDto.getUpdatedBy());
+        review.setUpdatedBy(user.getUserEmail());
         review.setUpdatedAt(LocalDateTime.now());
 
         return convertToResponseDto(review);
@@ -96,12 +93,11 @@ public class ReviewService {
 
     // 리뷰 삭제 (소프트 삭제)
     @Transactional
-    public void deleteReview(UUID reviewId) {
+    public void deleteReview(UUID reviewId, User user) {
         Review review = reviewRepository.findByReviewIdAndDeletedAtIsNull(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found"));
-
+        review.setDeletedBy(user.getUserEmail());
         review.setDeletedAt(LocalDateTime.now());
-//        review.setDeletedBy(deletedBy);
     }
 
     // Review 엔티티를 ReviewResponseDto로 변환

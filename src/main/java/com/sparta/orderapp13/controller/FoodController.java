@@ -2,10 +2,12 @@ package com.sparta.orderapp13.controller;
 
 import com.sparta.orderapp13.dto.FoodRequestDto;
 import com.sparta.orderapp13.dto.FoodResponseDto;
+import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +20,13 @@ public class FoodController {
 
     private final FoodService foodService;
 
+
     // 음식 등록
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
     @PostMapping
-    public ResponseEntity<FoodResponseDto> createFood(@RequestBody FoodRequestDto requestDto) {
-        FoodResponseDto responseDto = foodService.createFood(requestDto);
+    public ResponseEntity<FoodResponseDto> createFood(@RequestBody FoodRequestDto requestDto,
+                                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        FoodResponseDto responseDto = foodService.createFood(requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 
@@ -52,16 +56,19 @@ public class FoodController {
     @PutMapping("/{foodId}")
     public ResponseEntity<FoodResponseDto> updateFood(
             @PathVariable UUID foodId,
-            @RequestBody FoodRequestDto requestDto) {
-        FoodResponseDto responseDto = foodService.updateFood(foodId, requestDto);
+            @RequestBody FoodRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        FoodResponseDto responseDto = foodService.updateFood(foodId, requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 
     // 음식 소프트 삭제
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
-    @DeleteMapping("/{foodId}")
-    public ResponseEntity<Void> deleteFood(@PathVariable UUID foodId) {
-        foodService.deleteFood(foodId);
+    @DeleteMapping("/stores/{storeId}/foods/{foodId}")
+    public ResponseEntity<Void> deleteFood(@PathVariable UUID foodId,
+                                           @PathVariable UUID storeId,
+                                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        foodService.deleteFood(foodId, storeId, userDetails.getUser());
         return ResponseEntity.noContent().build();
     }
 
