@@ -6,18 +6,19 @@
 
 <div> 팀장 최영준 🐲  팀원 윤지용 🐂  오겸비 🐰</div>
 
+<div 
 # 팀원 역할분담
 
 | 이름 | 역할 | 담당 업무 | 
 | :-:  | :-: | :-: |
-| 최용준 | 백엔드 개발 | AI, Food, Category, Review |
+| 최영준 | 백엔드 개발 | AI, Food, Category, Review |
 | 윤지용 | 백엔드 개발 | User, 사용자 인증, Address |
 | 오겸비 | 백엔드 개발 | Order, Store, Payment |
 
 
 | <img src="https://avatars.githubusercontent.com/u/82498610?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/150976474?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/160198328?v=4" alt="" width="150"> |
 |:------:|:------:|:------:|
-| [최용준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
+| [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 
 <details>
 <summary>
