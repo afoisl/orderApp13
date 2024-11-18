@@ -25,6 +25,7 @@ public class MasterAccountSetup {
                 master.setUserEmail("master@example.com");
                 master.setName("master"); // name을 "master"로 설정
                 master.setPassword(passwordEncoder.encode("master1234")); // 초기 비밀번호 설정
+                master.setCreatedBy("master@example.com");
                 master.setRole(UserRoleEnum.MASTER);
                 userRepository.save(master);
             }
