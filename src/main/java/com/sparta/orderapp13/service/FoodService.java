@@ -51,8 +51,8 @@ public class FoodService {
         food.setFoodImg(requestDto.getFoodImg());
 
         // 생성자, 수정자 정보 설정. null일 경우 기본값 설정
-        food.setCreatedBy(requestDto.getCreatedBy() != null ? requestDto.getCreatedBy() : "생성한 사람1");
-        food.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
+        food.setCreatedBy(user.getUserEmail());
+        food.setUpdatedBy(user.getUserEmail());
 
         // Food 객체를 저장하여 기본 키 ID를 할당
         foodRepository.save(food);
@@ -130,17 +130,19 @@ public class FoodService {
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
 
         // 가게 소유주 검증
-        if (user.getRole().equals(UserRoleEnum.OWNER) && !store.getUser().getUserId().equals(user.getUserId())) {
-            throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+        if (user.getRole().equals(UserRoleEnum.OWNER)) {
+            if(!store.getUser().getUserId().equals(user.getUserId())){
+                throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+            }
         }
+        
 
         food.setFoodName(requestDto.getName());
         food.setFoodPrice(requestDto.getPrice());
         food.setDescription(requestDto.getDescription());
         food.setFoodImg(requestDto.getFoodImg());
-        food.setUpdatedAt(LocalDateTime.now());
 
-        food.setUpdatedBy(requestDto.getUpdatedBy() != null ? requestDto.getUpdatedBy() : "수정한 사람1");
+        food.setUpdatedBy(user.getUserEmail());
         food.setUpdatedAt(LocalDateTime.now());
 
         foodRepository.save(food);
@@ -155,10 +157,12 @@ public class FoodService {
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
 
         // 가게 소유주 검증
-        if (user.getRole().equals(UserRoleEnum.OWNER) && !store.getUser().getUserId().equals(user.getUserId())) {
-            throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+        if (user.getRole().equals(UserRoleEnum.OWNER)) {
+            if(!store.getUser().getUserId().equals(user.getUserId())){
+                throw new IllegalStateException("본인 가게의 음식만 삭제 할 수 있습니다.");
+            }
         }
-
+        food.setDeletedBy(user.getUserEmail());
         food.setDeletedAt(LocalDateTime.now()); // 소프트 삭제 시간 기록
         foodRepository.save(food); // 실제 삭제하지 않고, deletedAt만 갱신하여 저장
     }

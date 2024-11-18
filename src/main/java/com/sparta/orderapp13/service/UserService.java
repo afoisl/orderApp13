@@ -79,4 +79,18 @@ public class UserService {
             throw new IllegalStateException("이미 MANAGER 권한이 할당된 사용자입니다.");
         }
     }
+
+    // CUSTOMER 사용자에게 OWNER 역할 할당 메서드
+    @Transactional
+    public void assignOwner(String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        if (user.getRole() == UserRoleEnum.CUSTOMER) {
+            user.setRole(UserRoleEnum.OWNER);
+            userRepository.save(user);
+        } else {
+            throw new IllegalStateException("이미 OWNER 권한이 할당된 사용자입니다.");
+        }
+    }
 }

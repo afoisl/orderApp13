@@ -9,7 +9,5 @@ import java.util.List;
 @Setter
 public class CategoryResponseDto {
     private String categoryName;
-    private int categoryId;
     private List<String> foodNames;
-
 }

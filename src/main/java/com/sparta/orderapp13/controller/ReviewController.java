@@ -3,10 +3,12 @@ package com.sparta.orderapp13.controller;
 import com.sparta.orderapp13.dto.ReviewReplyRequestDto;
 import com.sparta.orderapp13.dto.ReviewRequestDto;
 import com.sparta.orderapp13.dto.ReviewResponseDto;
+import com.sparta.orderapp13.security.UserDetailsImpl;
 import com.sparta.orderapp13.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,9 @@ public class ReviewController {
 
     // 리뷰 생성
     @PostMapping
-    public ResponseEntity<ReviewResponseDto> createReview(@RequestBody ReviewRequestDto requestDto) {
-        ReviewResponseDto responseDto = reviewService.createReview(requestDto);
+    public ResponseEntity<ReviewResponseDto> createReview(@RequestBody ReviewRequestDto requestDto,
+                                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ReviewResponseDto responseDto = reviewService.createReview(requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 
@@ -41,8 +44,9 @@ public class ReviewController {
     @PutMapping("/{reviewId}")
     public ResponseEntity<ReviewResponseDto> updateReview(
             @PathVariable UUID reviewId,
-            @RequestBody ReviewRequestDto requestDto) {
-        ReviewResponseDto responseDto = reviewService.updateReview(reviewId, requestDto);
+            @RequestBody ReviewRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ReviewResponseDto responseDto = reviewService.updateReview(reviewId, requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 
@@ -50,8 +54,9 @@ public class ReviewController {
     @DeleteMapping("/{reviewId}")
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'CUSTOMER')")
     public ResponseEntity<Void> deleteReview(
-            @PathVariable UUID reviewId) {
-        reviewService.deleteReview(reviewId);
+            @PathVariable UUID reviewId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        reviewService.deleteReview(reviewId, userDetails.getUser());
         return noContent().build();
     }
 
