@@ -62,6 +62,7 @@ public class User {
         this.name = name;
         this.password = password;
         this.role = role;
+        this.createdBy = userEmail;
     }
 
 }
