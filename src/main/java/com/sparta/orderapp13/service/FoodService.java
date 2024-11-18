@@ -130,9 +130,12 @@ public class FoodService {
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
 
         // 가게 소유주 검증
-        if (user.getRole().equals(UserRoleEnum.OWNER) && !store.getUser().getUserId().equals(user.getUserId())) {
-            throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+        if (user.getRole().equals(UserRoleEnum.OWNER)) {
+            if(!store.getUser().getUserId().equals(user.getUserId())){
+                throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+            }
         }
+        
 
         food.setFoodName(requestDto.getName());
         food.setFoodPrice(requestDto.getPrice());
@@ -155,8 +158,10 @@ public class FoodService {
                 .orElseThrow(() -> new IllegalArgumentException("Food not found"));
 
         // 가게 소유주 검증
-        if (user.getRole().equals(UserRoleEnum.OWNER) && !store.getUser().getUserId().equals(user.getUserId())) {
-            throw new IllegalStateException("본인 가게의 음식만 수정 할 수 있습니다.");
+        if (user.getRole().equals(UserRoleEnum.OWNER)) {
+            if(!store.getUser().getUserId().equals(user.getUserId())){
+                throw new IllegalStateException("본인 가게의 음식만 삭제 할 수 있습니다.");
+            }
         }
 
         food.setDeletedAt(LocalDateTime.now()); // 소프트 삭제 시간 기록
