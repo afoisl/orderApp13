@@ -63,21 +63,20 @@ docker 사용 과
 <div markdown="1">
 
 #### 📌공통
-
-- 언어 및 프레임워크: Java 17, Spring Boot, Spring Security
-- 데이터베이스: PostgreSQL
-- 배포 및 관리: Docker, AWS
-- 협업 도구: GitHub, Slack
+- 버전 관리 및 협업: <img src="https://img.shields.io/badge/git-F05032?style=flat-square&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+- 데이터베이스: <img src="https://img.shields.io/badge/postgresql-4169E1?style=flat-square&logo=postgresql&logoColor=white"/>
+- 운영 체제: 
+- 커뮤니케이션: <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
 
 #### 📌백엔드
-
-- 개발 환경: IntelliJ IDEA, Windows, macOS
-- 프로그래밍 언어: Java 17
-- 빌드 도구: Gradle
-- 프레임워크: Spring Boot, Spring Security
-- 보안: JWT(JSON Web Token), Spring Security
+- 개발 환경: <img src="https://img.shields.io/badge/window-80B3FF?style=flat-square&logo=window&logoColor=white"/> <img src="https://img.shields.io/badge/macOS-000000?style=flat-square&logo=macos&logoColor=white"/>
+- 프로그래밍 언어: <img src="https://img.shields.io/badge/java-00465B?style=flat-square&logo=java&logoColor=white"/>
+- 빌드 도구: <img src="https://img.shields.io/badge/gradle-02303A?style=flat-square&logo=gradle&logoColor=white"/>
+- 프레임워크: <img src="https://img.shields.io/badge/spring-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/springboot-6DB33F?style=flat-square&logo=springboot&logoColor=white"/>
+- 보안: <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=flat-square&logo=springsecurity&logoColor=white"/>
 
 #### 📌배포
+ <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white"/>
 
 <br/>
 
