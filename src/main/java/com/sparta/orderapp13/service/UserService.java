@@ -7,14 +7,16 @@ import com.sparta.orderapp13.entity.UserRoleEnum;
 import com.sparta.orderapp13.jwt.JwtUtil;
 import com.sparta.orderapp13.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 public class UserService {
+
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -69,6 +71,8 @@ public class UserService {
     // CUSTOMER 사용자에게 MANAGER 역할 할당 메서드
     @Transactional
     public void assignManager(String userEmail) {
+        log.info("assignManager 호출 - userEmail: {}", userEmail);
+
         User user = userRepository.findByUserEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
@@ -79,4 +83,22 @@ public class UserService {
             throw new IllegalStateException("이미 MANAGER 권한이 할당된 사용자입니다.");
         }
     }
+
+    @Transactional
+    public void assignOwner(String userEmail) {
+        // 사용자 이메일로 검색
+        User user = userRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        // 역할이 CUSTOMER인 경우에만 OWNER로 변경 가능
+        if (user.getRole() == UserRoleEnum.CUSTOMER) {
+            user.setRole(UserRoleEnum.OWNER);
+            userRepository.save(user);
+        } else if (user.getRole() == UserRoleEnum.OWNER) {
+            throw new IllegalStateException("해당 사용자는 이미 OWNER 역할을 가지고 있습니다.");
+        } else {
+            throw new IllegalArgumentException("OWNER 역할은 CUSTOMER 사용자만 가질 수 있습니다.");
+        }
+    }
+
 }
