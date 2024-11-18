@@ -36,6 +36,7 @@ public class PaymentController {
         return paymentService.getAll(userDetails.getUser());
     }
 
+    // 결제 전체 목록 조회 (관리자용)
     @GetMapping("/payments/admin")
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     public List<PaymentResponseDto> getAllByAdmin(
