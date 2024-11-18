@@ -67,6 +67,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
     @PatchMapping("/update/{userId}")
     public ResponseEntity<String> updateUserByAdmin(@PathVariable Long userId, @Valid @RequestBody UpdateUserRequestDto requestDto) {
+        System.out.println("컨트롤러 userId: " + userId);
         userService.updateUserByAdmin(userId, requestDto);
         return ResponseEntity.ok("사용자 정보 수정 완료");
     }
