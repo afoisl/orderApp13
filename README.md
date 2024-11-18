@@ -4,9 +4,9 @@
 
 ### <div align="center">8조 준비용</div>
 
-<div> 팀장 최영준 🐲  팀원 윤지용 🐂  오겸비 🐰</div>
+<div align=center> 팀장 최영준 🐲  팀원 윤지용 🐂  오겸비 🐰</div>
 
-<div align=center>
+
 # 팀원 역할분담
 
 | 이름 | 역할 | 담당 업무 | 
@@ -20,7 +20,6 @@
 |:------:|:------:|:------:|
 | [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 
-</div>
 
 <details>
 <summary>
