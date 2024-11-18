@@ -6,6 +6,22 @@
 
 팀장 최영준 🐲  팀원 윤지용 🐂  오겸비 🐰</div>
 
+팀원 역할분담
+
+| 이름 | 역할 | 담당 업무 | 
+| 최용준 | 백엔드 개발 | AI, Food, Category, Review | 
+| 윤지용 | 백엔드 개발 | User, 사용자 인증, Address |
+| 오겸비 | 백엔드 개발 | Order, Store, Payment |
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 최용준 </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 윤지용 </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt="https://github.com/afoisl"/><br /><sub><b> 오겸비 </b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
 
 <details>
 <summary>
