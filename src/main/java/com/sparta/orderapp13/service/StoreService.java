@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,18 +51,22 @@ public class StoreService {
         return new StoreResponseDto(store);
     }
 
-    public Page<StoreResponseDto> search(int page, int size, String keyword) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Store> stores = storeRepository.findByStoreName(keyword, pageable);
+//    public Page<StoreResponseDto> search(int page, int size, String keyword) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<Store> stores = storeRepository.findByStoreName(keyword, pageable);
+//
+//        return stores.map(StoreResponseDto::new);
+//    }
 
-        return stores.map(StoreResponseDto::new);
-    }
+    public List<StoreResponseDto> getAll(UUID categoryId) {
+        List<Store> stores = storeRepository.findAllByCategoryId(queryFactory, categoryId);
+        List<StoreResponseDto> storeList = new ArrayList<>();
 
-    public List<StoreResponseDto> getAll(String categoryName) {
-        return storeRepository.findAllByCategoryName(queryFactory, categoryName)
-                .stream()
-                .map(StoreResponseDto::new)
-                .toList();
+        for (Store store : stores) {
+            storeList.add(new StoreResponseDto(store));
+        }
+
+        return storeList;
     }
 
     public StoreResponseDto get(UUID storeId) {
