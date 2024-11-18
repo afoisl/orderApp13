@@ -19,10 +19,16 @@
     <tr>
       <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 최용준 </b></sub></a><br /></td>
       <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 윤지용 </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt="https://github.com/afoisl"/><br /><sub><b> 오겸비 </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 오겸비 </b></sub></a><br /></td>
     </tr>
   </tbody>
 </table>
+
+|:------:|:------:|:------:|:------:|
+| <img src="https://github.com/choiy6" alt="최용준" width="150"> | <img src="https://github.com/jeffyun3061" alt="윤지용" width="150"> | <img src="https://github.com/afoisl" alt="오겸비" width="150"> |
+|:------:|:------:|:------:|:------:|
+| PL | FE | FE |
+| [GitHub](https://github.com/LDK1009) | [GitHub](https://github.com/SinYusi) | [GitHub](https://github.com/nay3on) | [GitHub](https://github.com/conconcc) |
 
 <details>
 <summary>
