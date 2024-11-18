@@ -26,7 +26,7 @@
 
 
 | <img src="https://github.com/choiy6" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/150976474?v=4" alt="" width="150"> | <img src="https://github.com/afoisl" alt="" width="150"> |
-|:------:|:------:|:------:|:------:|
+|:------:|:------:|:------:|
 | [최용준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 
 <details>
