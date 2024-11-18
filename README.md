@@ -21,7 +21,7 @@
 | [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 
 
-<details>
+
 <summary>
   <b>⭐ 프로젝트 개요</b>
 </summary>
@@ -51,11 +51,11 @@ docker 사용 과
 <br/>
 
 </div>
-</details>
+
 
 ---
 
-<details>
+
 <summary>
   <b>⭐ 기술 스택</b>
 </summary>
@@ -81,11 +81,11 @@ docker 사용 과
 <br/>
 
 </div>
-</details>
+
 
 ---
 
-<details>
+
 <summary>
   <b>⭐ 요구사항 정의서</b>
 </summary>
@@ -113,11 +113,11 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 <br/>
 
 </div>
-</details>
+
 
 ---
 
-<details>
+
 <summary>
   <b>⭐ ERD</b>
 </summary>
@@ -150,11 +150,10 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 </p>
 
 </div>
-</details>
 
 ---
 
-<details>
+
 <summary>
   <b>⭐ 프로그램 사양서</b>
 </summary>
@@ -167,11 +166,11 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 
 
 </div>
-</details>
+
 
 ---
 
-<details>
+
 <summary><b>⭐ 주요 단위 테스트 결과서</b></summary>
 <div markdown="1">
 
