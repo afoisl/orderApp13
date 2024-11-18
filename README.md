@@ -15,15 +15,14 @@
 | 최영준 | 백엔드 개발 | AI, Food, Category, Review |
 | 윤지용 | 백엔드 개발 | User, 사용자 인증, Address |
 | 오겸비 | 백엔드 개발 | Order, Store, Payment |
-
-
+<br/>
 | <img src="https://avatars.githubusercontent.com/u/82498610?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/150976474?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/160198328?v=4" alt="" width="150"> |
 |:------:|:------:|:------:|
 | [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 
 ---
 
-### - 프로젝트 개요
+## - 프로젝트 개요
 
 <div markdown="1">
 
@@ -56,7 +55,7 @@ docker 사용 과
 ---
 
 
-### - 기술 스택
+## - 기술 스택
 
 <div markdown="1">
 
@@ -86,7 +85,7 @@ docker 사용 과
 
 
 
-### - 요구사항 정의서
+## - 요구사항 정의서
 
 <div markdown="1">
 
@@ -118,7 +117,7 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 
 
 
- ### - ERD
+## - ERD
 
 <div markdown="1">
 <br/>
@@ -130,7 +129,7 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 
 ---
 
-### - 시스템 아키텍처 설계서
+## - 시스템 아키텍처 설계서
 
 <div markdown="1">
   
@@ -144,7 +143,7 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 
 
 
-### - 프로그램 사양서
+## - 프로그램 사양서
 
 <div markdown="1">
   
@@ -160,7 +159,7 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 ---
 
 
-### - 주요 단위 테스트 결과서
+## - 주요 단위 테스트 결과서
 <div markdown="1">
 
 
