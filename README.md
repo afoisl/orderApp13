@@ -14,18 +14,8 @@
 | 윤지용 | 백엔드 개발 | User, 사용자 인증, Address |
 | 오겸비 | 백엔드 개발 | Order, Store, Payment |
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 최용준 </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 윤지용 </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b> 오겸비 </b></sub></a><br /></td>
-    </tr>
-  </tbody>
-</table>
 
-
-| <img src="https://github.com/choiy6" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/150976474?v=4" alt="" width="150"> | <img src="https://github.com/afoisl" alt="" width="150"> |
+| <img src="https://avatars.githubusercontent.com/u/82498610?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/150976474?v=4" alt="" width="150"> | <img src="[https://github.com/afoisl](https://github.com/account)" alt="" width="150"> |
 |:------:|:------:|:------:|
 | [최용준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 
