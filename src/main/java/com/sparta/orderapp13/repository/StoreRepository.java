@@ -15,21 +15,21 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface StoreRepository extends JpaRepository<Store, UUID> {
-    default List<Store> findAllByCategoryName(JPAQueryFactory queryFactory, String categoryName) {
+    default List<Store> findAllByCategoryId(JPAQueryFactory queryFactory, UUID categoryId) {
         QStore store = QStore.store;
         QCategory category = QCategory.category;
 
         return queryFactory
                 .selectFrom(store)
                 .join(store.category, category)
-                .where(category.categoryName.eq(categoryName),
-                        store.isDeleted.isNull()) // DeletedAt 이 Null 인 가게만 조회
+                .where(category.categoryId.eq(categoryId),
+                        store.deletedAt.isNull()) // DeletedAt 이 Null 인 가게만 조회
                 .fetch();
     }
 
     Optional<Store> findByStoreIdAndDeletedAtIsNull(UUID storeId);
 
-    @Query("SELECT s FROM Store s WHERE s.storeName LIKE %:keyword% AND s.deletedAt IS NULL")
-    Page<Store> findByStoreName(String keyword, Pageable pageable);
+//    @Query("SELECT s FROM Store s WHERE s.storeName LIKE %:keyword% AND s.deletedAt IS NULL")
+//    Page<Store> findByStoreName(String keyword, Pageable pageable);
 }
 

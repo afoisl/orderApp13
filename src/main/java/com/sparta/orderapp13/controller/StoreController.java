@@ -34,18 +34,18 @@ public class StoreController {
     }
 
     // 카테고리별 가게 조회
-    @GetMapping("/stores")
-    public List<StoreResponseDto> getAll(@RequestParam String category) {
-        return storeService.getAll(category);
+    @GetMapping("/stores/{categoryId}")
+    public List<StoreResponseDto> getAll(@PathVariable UUID categoryId) {
+        return storeService.getAll(categoryId);
     }
 
-    // 키워드로 가게 검색
-    @GetMapping("/stores/search")
-    public ResponseEntity<Page<StoreResponseDto>> search(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                        @RequestParam(value = "size", defaultValue = "10") int size,
-                                                        @RequestParam(value = "keyword") String keyword) {
-        return ResponseEntity.ok(storeService.search(page - 1, size, keyword));
-    }
+//    // 키워드로 가게 검색
+//    @GetMapping("/stores/search")
+//    public ResponseEntity<Page<StoreResponseDto>> search(@RequestParam(value = "page", defaultValue = "1") int page,
+//                                                        @RequestParam(value = "size", defaultValue = "10") int size,
+//                                                        @RequestParam(value = "keyword") String keyword) {
+//        return ResponseEntity.ok(storeService.search(page - 1, size, keyword));
+//    }
 
     // 가게 상세 조회
     @GetMapping("/store/{storeId}")
