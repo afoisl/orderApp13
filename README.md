@@ -49,8 +49,8 @@ docker 사용 과
 <div markdown="1">
 
 #### 📌공통
-- 버전 관리 및 협업:
-- 데이터베이스: 
+- 버전 관리 및 협업: 
+- 데이터베이스:[![My Skills](https://skillicons.dev/icons?i=postgreSQL)](https://skillicons.dev)
 - 운영 체제:
 - 커뮤니케이션: <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
 
