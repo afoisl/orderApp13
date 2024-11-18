@@ -4,7 +4,7 @@
 
 ### <div align="center">8조 준비용</div>
 
-<div align=center> 팀장 | 최영준 🐲     팀원 | 윤지용 🐂  오겸비 🐰</div>
+<div align=center> 팀장 | 최영준 🐲 <br/> 팀원 | 윤지용 🐂  오겸비 🐰</div>
 
 ---
 
@@ -21,6 +21,7 @@
 |:------:|:------:|:------:|
 | [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
 
+<br/>
 ---
 
 ## - 프로젝트 개요
