@@ -49,14 +49,6 @@ public class UserController {
         return ResponseEntity.ok("사용자 " + userEmail + "이(가) OWNER로 임명되었습니다.");
     }
 
-    // MASTER 또는 MANAGER가 OWNER 역할 할당
-    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER')")
-    @PatchMapping("/assign-owner")
-    public ResponseEntity<String> assignOwner(@RequestParam String userEmail) {
-        userService.assignOwner(userEmail);
-        return ResponseEntity.ok("사용자 " + userEmail + "이(가) OWNER로 임명되었습니다.");
-    }
-
     // 로그인한 사용자의 개인정보 수정 (CUSTOMER/OWNER)
     @PatchMapping("/update")
     public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequestDto requestDto) {
