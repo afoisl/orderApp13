@@ -54,9 +54,6 @@ docker 사용 과
 - 운영 체제: 
 - 커뮤니케이션: <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
 
-#### 📌프론트엔드
-- 개발 환경: 
-- 프로그래밍 언어: 
 #### 📌백엔드
 - 개발 환경: <img src="https://img.shields.io/badge/window-80B3FF?style=flat-square&logo=window&logoColor=white"/> <img src="https://img.shields.io/badge/macOS-000000?style=flat-square&logo=macos&logoColor=white"/>
 - 프로그래밍 언어: <img src="https://img.shields.io/badge/java-00465B?style=flat-square&logo=java&logoColor=white"/>
@@ -65,7 +62,7 @@ docker 사용 과
 - 보안: <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=flat-square&logo=springsecurity&logoColor=white"/>
 
 #### 📌배포
-
+ <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white"/>
 <br/>
 
 </div>
