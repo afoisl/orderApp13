@@ -1,17 +1,32 @@
-# <div align="center">배달 사이트</div>
+# <div align="center">배달 사이트 </div>
 
-## <div align="center">주문배달 프로젝트</div>
+## <div align="center">주문배달 프로젝트 </div>
 
 ### <div align="center">8조 준비용</div>
-<div align="center">🐲최영준팀장 🐂윤지용 팀원 🐰오겸비 팀원</div>
-<br/>
+
+<div align=center> 팀장 | 최영준 🐲 <br/> 팀원 | 윤지용 🐂  오겸비 🐰</div>
 
 ---
 
-<details>
-<summary>
-  <b>⭐ 프로젝트 개요</b>
-</summary>
+<br/>
+
+## - 팀원 역할분담
+
+| 이름 | 역할 | 담당 업무 | 
+| :-:  | :-: | :-: |
+| 최영준 | 백엔드 개발 | AI, Food, Category, Review |
+| 윤지용 | 백엔드 개발 | User, 사용자 인증, Address |
+| 오겸비 | 백엔드 개발 | Order, Store, Payment |
+<br/>
+
+| <img src="https://avatars.githubusercontent.com/u/82498610?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/150976474?v=4" alt="" width="150"> | <img src="https://avatars.githubusercontent.com/u/160198328?v=4" alt="" width="150"> |
+|:------:|:------:|:------:|
+| [최영준](https://github.com/choiy6) | [윤지용](https://github.com/jeffyun3061) | [오겸비](https://github.com/afoisl) |
+<br/>
+
+
+## - 프로젝트 개요
+
 <div markdown="1">
 
 #### 📌주제
@@ -32,51 +47,46 @@
 Spring Security와 JWT 기반의 인증/인가 체계 구축.
 사용자 역할(CUSTOMER, OWNER, MANAGER, MASTER)에 따른 접근 권한 관리.
 
-4.확장성과 성능 최적화
-docker 사용 과
+
 
 <br/>
 
 </div>
-</details>
+
 
 ---
 
-<details>
-<summary>
-  <b>⭐ 기술 스택</b>
-</summary>
+
+## - 기술 스택
+
 <div markdown="1">
 
 #### 📌공통
-- 버전 관리 및 협업:
-- 데이터베이스: 
-- 운영 체제:
+- 버전 관리 및 협업: <img src="https://img.shields.io/badge/git-F05032?style=flat-square&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
+- 데이터베이스: <img src="https://img.shields.io/badge/postgresql-4169E1?style=flat-square&logo=postgresql&logoColor=white"/>
 - 커뮤니케이션: <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white"/>
 
-#### 📌프론트엔드
-- 개발 환경: 
-- 프로그래밍 언어: 
 #### 📌백엔드
-- 개발 환경: 
-- 프로그래밍 언어:
-- 빌드 도구: 
-- 프레임워크: 
-- 보안: 
+- 개발 환경: <img src="https://img.shields.io/badge/window-80B3FF?style=flat-square&logo=window&logoColor=white"/> <img src="https://img.shields.io/badge/macOS-000000?style=flat-square&logo=macos&logoColor=white"/>
+- 프로그래밍 언어: <img src="https://img.shields.io/badge/java-00465B?style=flat-square&logo=java&logoColor=white"/>
+- 빌드 도구: <img src="https://img.shields.io/badge/gradle-02303A?style=flat-square&logo=gradle&logoColor=white"/>
+- 프레임워크: <img src="https://img.shields.io/badge/spring-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/springboot-6DB33F?style=flat-square&logo=springboot&logoColor=white"/>
+- 보안: <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=flat-square&logo=springsecurity&logoColor=white"/>
 
 #### 📌배포
+- <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white"/>
 
 <br/>
 
 </div>
-</details>
+
 
 ---
 
-<details>
-<summary>
-  <b>⭐ 요구사항 정의서</b>
-</summary>
+
+
+## - 요구사항 정의서
+
 <div markdown="1">
 
 #### 📌 목적
@@ -101,89 +111,32 @@ MANAGER: 일부 관리자 권한으로 가게 및 주문 관리.
 <br/>
 
 </div>
-</details>
+
 
 ---
 
-<details>
-<summary>
- 
-</div>
-</details>
 
----
 
-<details>
-<summary>
-  <b>⭐ ERD</b>
-</summary>
+## - ERD
+
 <div markdown="1">
+<br/>
   
-
-  
-</div>
-</details>
-
----
-
-<details>
-<summary>
-  <b>⭐ WBS</b>
-</summary>
-
-</p>
+![sparta13 (1)](https://github.com/user-attachments/assets/396d1681-4b3c-4210-85cb-efa30389af3e)
 
 </div>
-</details>
+
 
 ---
 
-<details>
-<summary>
-  <b>⭐ 화면설계서</b>
-</summary>
+## - 시스템 아키텍처 설계서
+
 <div markdown="1">
-
-- 메인화면
-
+ <img width="690" alt="스크린샷 2024-11-07 20 34 27" src="https://github.com/user-attachments/assets/a3dd7152-d49e-4a25-af4e-47081762d505">
 
 
-  <b>⭐ 시스템 아키텍처 설계서</b>
-</summary>
-<div markdown="1">
-  
 <p align="center">
- 
+
 </p>
-
-</div>
-</details>
-
----
-
-<details>
-<summary>
-  <b>⭐ 프로그램 사양서</b>
-</summary>
-<div markdown="1">
-  
-- API 전체 목록
-
-
-- 문서, 사용자 API 목록
-
-
-</div>
-</details>
-
----
-
-<details>
-<summary><b>⭐ 주요 단위 테스트 결과서</b></summary>
-<div markdown="1">
-
-
-<summary><b>⭐ UI/UX 단위 테스트결과서</b></summary>
-
 
 </div>
