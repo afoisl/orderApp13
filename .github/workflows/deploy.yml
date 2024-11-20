@@ -65,20 +65,6 @@ jobs:
           port: 22
           script_stop: false # 오류로 중단하지 않도록 설정
           script: |
-            # 1. 패키지 충돌 방지 및 시스템 업데이트
-            echo "Updating system packages..."
-            sudo yum update --skip-broken -y || true
-
-            # 2. Java 설치
-            echo "Installing Java..."
-            sudo yum install -y java-17-amazon-corretto || true
-
-            # 3. 충돌하는 패키지 처리 (필요 시 dracut-config-ec2 제거)
-            echo "Checking for problematic packages..."
-            if rpm -q dracut-config-ec2; then
-              sudo yum remove -y dracut-config-ec2 || true
-            fi
-
             # 4. 기존 Java 프로세스 종료
             echo "Terminating existing Java processes..."
             pgrep -f 'java -jar' | while read pid; do
