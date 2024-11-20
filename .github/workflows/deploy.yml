@@ -52,6 +52,9 @@ jobs:
           source: "./build/libs/*.jar"
           target: "~"
           strip_components: 2
+          command: |
+            echo "Setting execute permissions for JAR file..."
+            chmod +x ~/orderApp13-0.0.1-SNAPSHOT.jar
 
       - name: SSH Commands
         uses: appleboy/ssh-action@v0.1.6
@@ -83,9 +86,6 @@ jobs:
               kill -9 $pid || true
             done
 
-            # 5. java 프로세스 권한 설정
-            sudo chmod +x ~/*.jar
-
-            # 6. 새로운 Java 프로세스 실행
+            # 5. 새로운 Java 프로세스 실행
             echo "Starting new Java process with nohup..."
             nohup java -Xmx512m -jar ~/*.jar > ~/app.log 2>&1 &
