@@ -19,12 +19,19 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
+      - name: 현재 디렉터리 확인
+        run: |
+          echo "현재 디렉터리:"
+          pwd
+          echo "디렉터리 내 파일 목록:"
+          ls -al
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
       - name: 환경변수 설정
         run: echo "${{ secrets.MY_APPLICATION_YML}}" > ./src/main/resources/application.properties
-        working-directory: ./server/linode/github-action-test
+        working-directory: ./orderApp13
 
       - name: gradlew bootJar
         run: ./gradlew bootJar
