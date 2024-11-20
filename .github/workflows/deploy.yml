@@ -31,7 +31,7 @@ jobs:
 
       - name: 환경변수 설정
         run: echo "${{ secrets.MY_APPLICATION_YML}}" > ./src/main/resources/application.properties
-        working-directory: ./orderApp13
+        working-directory: /home/runner/work/orderApp13/orderApp13
 
       - name: gradlew bootJar
         run: ./gradlew bootJar
