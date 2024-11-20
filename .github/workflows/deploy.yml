@@ -73,7 +73,7 @@ jobs:
             echo "Terminating existing Java processes..."
             pgrep -f 'java -jar' | while read pid; do
               echo "Terminating Java process with PID: $pid"
-              kill -9 $pid || true
+              kill $pid || true
             done
               echo "Starting new Java process with nohup..."
               nohup java -Xms256m -Xmx1024m -jar ~/*.jar > ~/app.log 2>&1 &
