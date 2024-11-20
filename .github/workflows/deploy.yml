@@ -74,8 +74,9 @@ jobs:
             pgrep -f 'java -jar orderApp13-0.0.1-SNAPSHOT.jar' | while read pid; do 
               echo "Terminating Java process with PID: $pid"
             done
-              echo "Starting new Java process with nohup..."
-              nohup java -Xms64m -Xmx256m -jar ~/*.jar > ~/app.log 2>&1 &
+            
+            echo "Starting new Java process with nohup..."
+            nohup java -Xms64m -Xmx256m -jar ~/*.jar > ~/app.log 2>&1 &
   
             # Java 프로세스 상태 확인
             sleep 5
