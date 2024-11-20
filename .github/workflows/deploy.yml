@@ -40,7 +40,7 @@ jobs:
         working-directory: /home/runner/work/orderApp13/orderApp13
 
       - name: gradlew bootJar
-        run: ./gradlew bootJar
+        run: ./gradlew bootJar -Dorg.gradle.jvmargs="-Xms128m -Xmx512m"
 
       - name: Set execute permissions for JAR file
         run: chmod +x ./build/libs/*.jar
