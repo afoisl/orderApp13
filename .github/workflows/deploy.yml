@@ -45,7 +45,7 @@ jobs:
         working-directory: /home/runner/work/orderApp13/orderApp13
 
       - name: gradlew bootJar
-        run: ./gradlew bootJar -Dorg.gradle.jvmargs="-Xms128m -Xmx512m"
+        run: ./gradlew bootJar -Dorg.gradle.jvmargs="-Xms256m -Xmx1024m"
 
       - name: Set execute permissions for JAR file
         run: chmod +x ./build/libs/*.jar
@@ -68,7 +68,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          script_stop: false # 오류로 중단하지 않도록 설정
+          script_stop: true
           script: |
             echo "Terminating existing Java processes..."
             pgrep -f 'java -jar' | while read pid; do
@@ -76,4 +76,4 @@ jobs:
               kill -9 $pid || true
             done
             echo "Starting new Java process with nohup..."
-            nohup java -Xms128m -Xmx512m -jar ~/*.jar > ~/app.log 2>&1 &
+            nohup java -Xms256m -Xmx1024m -jar ~/*.jar > ~/app.log 2>&1 &
