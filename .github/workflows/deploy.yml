@@ -33,6 +33,12 @@ jobs:
         run: echo "${{ secrets.MY_APPLICATION_YML}}" > ./src/main/resources/application.properties
         working-directory: /home/runner/work/orderApp13/orderApp13
 
+      - name: application.properties 내용 출력
+        run: |
+          echo "application.properties 내용:"
+          cat ./src/main/resources/application.properties
+        working-directory: /home/runner/work/orderApp13/orderApp13
+
       - name: gradlew bootJar
         run: ./gradlew bootJar
 
