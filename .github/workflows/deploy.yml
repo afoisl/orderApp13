@@ -70,6 +70,7 @@ jobs:
           port: 22
           script_stop: false
           script: |
+            ps aux | grep java
             echo "Terminating existing Java processes..."
             pgrep -f 'java -jar' | while read pid; do
               echo "Terminating Java process with PID: $pid"
