@@ -45,7 +45,7 @@ jobs:
         working-directory: /home/runner/work/orderApp13/orderApp13
 
       - name: gradlew bootJar
-        run: ./gradlew bootJar -Dorg.gradle.jvmargs="-Xms256m -Xmx1024m"
+        run: ./gradlew bootJar -Dorg.gradle.jvmargs="-Xms128m -Xmx512m"
 
       - name: Set execute permissions for JAR file
         run: chmod +x ./build/libs/*.jar
@@ -76,7 +76,7 @@ jobs:
               echo "Terminating Java process with PID: $pid"
             done
               echo "Starting new Java process with nohup..."
-              nohup java -Xms256m -Xmx1024m -jar ~/*.jar > ~/app.log 2>&1 &
+              nohup java -Xms128m -Xmx512m -jar ~/*.jar > ~/app.log 2>&1 &
   
             # Java 프로세스 상태 확인
             sleep 5
