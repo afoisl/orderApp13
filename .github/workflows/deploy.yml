@@ -65,13 +65,10 @@ jobs:
           port: 22
           script_stop: false # 오류로 중단하지 않도록 설정
           script: |
-            # 4. 기존 Java 프로세스 종료
             echo "Terminating existing Java processes..."
             pgrep -f 'java -jar' | while read pid; do
               echo "Terminating Java process with PID: $pid"
               kill -9 $pid || true
             done
-
-            # 5. 새로운 Java 프로세스 실행
             echo "Starting new Java process with nohup..."
-            nohup java -Xmx512m -jar ~/*.jar > ~/app.log 2>&1 &
+            nohup java -Xms128m -Xmx512m -jar ~/*.jar > ~/app.log 2>&1 &
