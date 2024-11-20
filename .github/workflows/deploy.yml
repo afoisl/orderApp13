@@ -39,11 +39,11 @@ jobs:
           cat ./src/main/resources/application.properties
         working-directory: /home/runner/work/orderApp13/orderApp13
 
-      - name: Set execute permissions for JAR file
-        run: chmod +x ./build/libs/*.jar
-
       - name: gradlew bootJar
         run: ./gradlew bootJar
+
+      - name: Set execute permissions for JAR file
+        run: chmod +x ./build/libs/*.jar
 
       - name: Copy jar to server
         uses: appleboy/scp-action@master
