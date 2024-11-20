@@ -30,7 +30,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: 환경변수 설정
-        run: echo "${{ secrets.MY_APPLICATION_YML}}" > ./src/main/resources/application.properties
+        run: echo "${{ secrets.MY_APPLICATION_PROPERTIES}}" > ./src/main/resources/application.properties
         working-directory: /home/runner/work/orderApp13/orderApp13
 
       - name: application.properties 내용 출력
