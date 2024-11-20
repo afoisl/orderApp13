@@ -77,7 +77,6 @@ jobs:
             done
             echo "Starting new Java process with nohup..."
             nohup java -Xms256m -Xmx1024m -jar ~/*.jar > ~/app.log 2>&1 &
-            그리고 nohup java -jar 커맨드 다음에 이 커맨드도 추가하면 좋을 것 같아요
 
             # Java 프로세스 상태 확인
             sleep 5
