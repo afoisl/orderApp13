@@ -10,4 +10,5 @@ public class AddressRequestDto {
     private String city;
     private String detailedAddress;
     private Long postalCode;
+    //
 }
