@@ -83,8 +83,8 @@ jobs:
               kill -9 $pid || true
             done
 
-            # 5. java 프로세스 권한 설정 
-            sudo chmod +x orderApp13-0.0.1-SNAPSHOT.jar
+            # 5. java 프로세스 권한 설정
+            sudo chmod +x ~/*.jar
 
             # 6. 새로운 Java 프로세스 실행
             echo "Starting new Java process with nohup..."
