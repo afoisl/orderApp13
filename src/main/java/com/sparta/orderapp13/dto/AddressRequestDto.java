@@ -9,5 +9,5 @@ public class AddressRequestDto {
     private String region;
     private String city;
     private String detailedAddress;
-    private Long postalCode; //
+    private Long postalCode;
 }
