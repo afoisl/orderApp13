@@ -39,6 +39,9 @@ jobs:
           cat ./src/main/resources/application.properties
         working-directory: /home/runner/work/orderApp13/orderApp13
 
+      - name: Set execute permissions for JAR file
+        run: chmod +x ./build/libs/*.jar
+
       - name: gradlew bootJar
         run: ./gradlew bootJar
 
@@ -52,9 +55,6 @@ jobs:
           source: "./build/libs/*.jar"
           target: "~"
           strip_components: 2
-          command: |
-            echo "Setting execute permissions for JAR file..."
-            chmod +x ~/orderApp13-0.0.1-SNAPSHOT.jar
 
       - name: SSH Commands
         uses: appleboy/ssh-action@v0.1.6
