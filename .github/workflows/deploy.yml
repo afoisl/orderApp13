@@ -72,11 +72,9 @@ jobs:
           script: |
             ps aux | grep java
             echo "Terminating existing Java processes..."
-            pgrep -f 'java -jar' 
-            orderApp13-0.0.1-SNAPSHOT.jar' |
-            while read pid; do
+            pgrep -f 'java -jar' orderApp13-0.0.1-SNAPSHOT.jar' | while read pid; do
               echo "Terminating Java process with PID: $pid"
-              kill $pid || true
+              kill -9 $pid || true
             done
               echo "Starting new Java process with nohup..."
               nohup java -Xms256m -Xmx1024m -jar ~/*.jar > ~/app.log 2>&1 &
