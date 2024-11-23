@@ -126,9 +126,6 @@ public class OrderService {
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("유효하지 않은 주문 상태입니다.");
         }
-
-        // 변경된 주문 저장 후 응답 DTO 반환
-        orderRepository.save(order);
         return new OrderUpdateDto(order);
     }
 
@@ -153,9 +150,6 @@ public class OrderService {
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("유효하지 않은 주문 상태입니다.");
         }
-
-        // 변경된 주문 저장 후 응답 DTO 반환
-        orderRepository.save(order);
         return new OrderUpdateDto(order);
     }
 
@@ -180,9 +174,6 @@ public class OrderService {
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("유효하지 않은 주문 상태입니다.");
         }
-
-        // 변경된 주문 저장 후 응답 DTO 반환
-        orderRepository.save(order);
         return new OrderUpdateDto(order);
     }
 
@@ -201,7 +192,5 @@ public class OrderService {
 
         // 주문 상태를 취소로 변경
         order.cancel();
-
-        orderRepository.save(order);
     }
 }

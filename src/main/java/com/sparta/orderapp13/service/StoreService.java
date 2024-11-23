@@ -90,8 +90,6 @@ public class StoreService {
         // 수정 사항 업데이트
         store.update(requestDto, category);
 
-        // 수정 정보 저장
-        storeRepository.save(store);
         return storeId;
     }
 
