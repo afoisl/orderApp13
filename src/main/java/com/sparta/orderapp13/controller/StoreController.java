@@ -23,7 +23,7 @@ public class StoreController {
 
     // 가게 등록
     @PostMapping("/stores")
-    @PreAuthorize("hasAnyRole('MASTER', 'MANAGER', 'OWNER')")
+    @PreAuthorize("hasAnyRole('MASTER')")
     public StoreResponseDto enroll(@RequestBody StoreRequestDto requestDto,
                                     @AuthenticationPrincipal UserDetailsImpl userDetails) {
         System.out.println(requestDto.getCity());
