@@ -41,8 +41,12 @@ jobs:
 
       - name: chmod setting
         run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh 
+          
           echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/orderapp13.pem 
           chmod 600 ~/.ssh/orderapp13.pem
+          ls -l ~/.ssh
 
       # EC2 배포
       - name: Docker image pull & Deploy to EC2
