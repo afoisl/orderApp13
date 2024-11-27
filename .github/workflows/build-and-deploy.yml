@@ -55,7 +55,7 @@ jobs:
           else
             echo "No containers to stop."
           fi
-          sudo docker run -d --log-driver=syslog -p 5432:5432 ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
+          sudo docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
 #          if [ "$(sudo docker ps --filter 'status=exited' -a -q)" ]; then
 #            sudo docker rm $(sudo docker ps --filter 'status=exited' -a -q)
 #          else
