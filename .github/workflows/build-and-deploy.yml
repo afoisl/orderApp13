@@ -39,18 +39,39 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/docker-test .
           docker push ${{ secrets.DOCKER_USERNAME }}/docker-test
 
+      - name: chmod setting
+        run: |
+          echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/orderapp13.pem 
+          chmod 600 ~/.ssh/orderapp13.pem
+
       # EC2 배포
       - name: Docker image pull & Deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }} # EC2 인스턴스 퍼블릭 DNS
-          username: ubuntu
-          key: ${{ secrets.EC2_PRIVATE_KEY }} # pem 키
-          # 도커 작업
-          script: |
-            chmod 600 ~/.ssh/orderApp13-keypair.pem # 권한 설정 추가
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
-            sudo docker stop $(sudo docker ps -a -q)
-            sudo docker run -d --log-driver=syslog -p 5432:5432 ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
-            sudo docker rm $(sudo docker ps --filter 'status=exited' -a -q)
-            sudo docker image prune -a -f
+        run: |
+          ssh -i ~/.ssh/orderapp13.pem ec2-user@ec2-3-27-216-195.ap-southeast-2.compute.amazonaws.com
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.EC2_HOST }} # EC2 인스턴스 퍼블릭 DNS
+#          username: ubuntu
+#          key: ${{ secrets.EC2_PRIVATE_KEY }} # pem 키
+#          # 도커 작업
+#          script: |
+#            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
+#            sudo docker stop $(sudo docker ps -a -q)
+#            sudo docker run -d --log-driver=syslog -p 5432:5432 ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
+#            sudo docker rm $(sudo docker ps --filter 'status=exited' -a -q)
+#            sudo docker image prune -a -f
+
+#      # EC2 배포
+#      - name: Docker image pull & Deploy to EC2
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.EC2_HOST }} # EC2 인스턴스 퍼블릭 DNS
+#          username: ubuntu
+#          key: ${{ secrets.EC2_PRIVATE_KEY }} # pem 키
+#          # 도커 작업
+#          script: |
+#            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
+#            sudo docker stop $(sudo docker ps -a -q)
+#            sudo docker run -d --log-driver=syslog -p 5432:5432 ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
+#            sudo docker rm $(sudo docker ps --filter 'status=exited' -a -q)
+#            sudo docker image prune -a -f
