@@ -20,10 +20,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: 환경변수 설정
-        run: echo "${{ secrets.MY_APPLICATION_PROPERTIES}}" > ./src/main/resources/application.properties
-        working-directory: /home/runner/work/orderApp13/orderApp13
-
       # Configure Gradle for optimal use in GiHub Actions, including caching of downloaded dependencies.
       # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
       - name: Setup Gradle
