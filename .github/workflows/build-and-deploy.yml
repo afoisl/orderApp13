@@ -53,7 +53,11 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/orderapp13.pem ec2-user@ec2-3-27-216-195.ap-southeast-2.compute.amazonaws.com
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
-          sudo docker stop $(sudo docker ps -a -q)
+          if [ "$(sudo docker ps -a -q)" ]; then
+            sudo docker stop $(sudo docker ps -a -q)
+          else
+            echo "No containers to stop."
+          fi
           sudo docker run -d --log-driver=syslog -p 5432:5432 ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
           sudo docker rm $(sudo docker ps --filter 'status=exited' -a -q)
           sudo docker image prune -a -f
