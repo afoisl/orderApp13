@@ -53,6 +53,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/orderapp13.pem ec2-user@ec2-3-27-216-195.ap-southeast-2.compute.amazonaws.com
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
+          hostname -f
           if [ "$(sudo docker ps -a -q)" ]; then
             sudo docker stop $(sudo docker ps -a -q)
           else
