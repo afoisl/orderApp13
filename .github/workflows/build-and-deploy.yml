@@ -47,7 +47,7 @@ jobs:
       # EC2 배포
       - name: Docker image pull & Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/orderapp13.pem ec2-user@ec2-3-27-216-195.ap-southeast-2.compute.amazonaws.com
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/orderapp13.pem ec2-user@ec2-3-27-216-195.ap-southeast-2.compute.amazonaws.com << 'EOF'
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
           hostname -f
           if [ "$(sudo docker ps -a -q)" ]; then
@@ -56,6 +56,7 @@ jobs:
             echo "No containers to stop."
           fi
           sudo docker run --network host -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/docker-test:latest
+          EOF
 #          if [ "$(sudo docker ps --filter 'status=exited' -a -q)" ]; then
 #            sudo docker rm $(sudo docker ps --filter 'status=exited' -a -q)
 #          else
